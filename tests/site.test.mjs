@@ -7,11 +7,14 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 test('notes data has stable public fields', async () => {
   const notes = JSON.parse(await readFile(resolve(root, 'content/notes.json'), 'utf8'));
-  assert.ok(notes.length >= 8);
+  assert.deepEqual(notes.map(note => note.id).sort(), [
+    'base-url-and-mcp', 'rest-api-and-github-actions', 'url-basics'
+  ]);
   for (const note of notes) {
     assert.match(note.id, /^[a-z0-9-]+$/);
     assert.ok(note.title && note.category && note.summary);
     assert.equal(note.draft, false);
+    assert.ok(['term-explanation', 'name-explanation'].includes(note.entryType));
   }
 });
 
@@ -20,4 +23,22 @@ test('site entrypoint is mobile-ready', async () => {
   assert.match(html, /viewport/);
   assert.match(html, /style\.css/);
   assert.match(html, /app\.js/);
+});
+
+test('browser modules use extensions supported by the preview server', async () => {
+  const script = await readFile(resolve(root, 'site/app.js'), 'utf8');
+  const imports = [...script.matchAll(/from ['"]\.\/([^'"]+)['"]/g)];
+  assert.ok(imports.length > 0);
+  for (const [, name] of imports) {
+    assert.match(name, /\.js$/);
+    assert.ok((await readFile(resolve(root, 'site', name), 'utf8')).length > 0);
+  }
+});
+
+test('sync display requires confirmation instead of a daily schedule', async () => {
+  const script = await readFile(resolve(root, 'site/app.js'), 'utf8');
+  assert.doesNotMatch(script, /09:00|每日同步/);
+  assert.match(script, /30 min/);
+  assert.match(script, /结束确认后等待/);
+  assert.match(script, /推送后发布/);
 });
