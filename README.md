@@ -2,6 +2,8 @@
 
 从“提问”项目的真实问题中沉淀出的公开 AI 使用笔记网站。
 
+在线地址：<https://yuliye0409-hue.github.io/ai-question-notebook/>
+
 ## 本地预览
 
 ```powershell
@@ -10,6 +12,8 @@ npm run dev
 ```
 
 然后打开终端提示的本地地址。`npm run build` 会把 `site/` 和 `content/` 复制到 `dist/`，网站本身是无后端的静态站点。
+
+如果本机没有 npm，也可以直接运行 `node scripts/build.mjs`，再用任意静态服务器打开 `dist/`。
 
 ## 增量同步
 
