@@ -111,7 +111,7 @@ function bindEvents() {
 
 async function init() {
   try {
-    const response = await fetch('./notes.json');
+    const response = await fetch('./notes.json', { cache: 'no-store' });
     if (!response.ok) throw new Error(`notes.json: ${response.status}`);
     state.notes = await response.json();
     render();
