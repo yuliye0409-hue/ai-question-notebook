@@ -28,3 +28,13 @@ export function selectPublicNotes(notes) {
     && note.draft === false
     && !['pending', 'rejected'].includes(note.publishDecision));
 }
+
+// Tutorials are opt-in: never import ordinary work questions as glossary notes.
+export function selectPublicTutorials(tutorials) {
+  if (!Array.isArray(tutorials)) throw new Error('tutorials.json 必须是教程数组。');
+  return tutorials.filter(note => note.entryType === 'tutorial'
+    && note.draft === false
+    && note.publishDecision === 'approved'
+    && typeof note.approvalEvidence === 'string'
+    && note.approvalEvidence.trim().length > 0);
+}

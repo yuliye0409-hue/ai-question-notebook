@@ -17,3 +17,9 @@ export function filterNotes(notes, category = '全部', query = '') {
 export function latestUpdate(notes) {
   return filterNotes(notes)[0]?.updated || '';
 }
+
+export function getCollectionNotes(notes, collection = 'notes') {
+  return filterNotes(notes).filter(note => collection === 'tutorials'
+    ? note.entryType === 'tutorial'
+    : note.entryType !== 'tutorial');
+}
