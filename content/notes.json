@@ -1,0 +1,197 @@
+[
+  {
+    "id": "base-url-and-mcp",
+    "title": "Base URL 和 MCP 分别是什么？",
+    "category": "基础概念",
+    "tags": ["Base URL", "MCP", "API"],
+    "date": "2026-05-03",
+    "updated": "2026-05-03",
+    "draft": false,
+    "sourceThread": "01a06501-1e2f-7e32-bf57-4de8d911cdb3",
+    "summary": "Base URL 是 API 服务的基础地址；MCP 是让 AI 连接外部工具、数据和服务的标准协议。",
+    "body": [
+      { "type": "heading", "text": "一句话理解" },
+      { "type": "paragraph", "text": "Base URL 解决“服务在哪里”，MCP 解决“AI 如何发现并使用外部工具”。" },
+      { "type": "code", "text": "Base URL: https://api.example.com/v1\n完整接口: https://api.example.com/v1/chat/completions" },
+      { "type": "heading", "text": "MCP 能连接什么" },
+      { "type": "list", "items": ["文件系统和本地资料", "数据库与内部业务工具", "浏览器、GitHub 和自动化服务"] },
+      { "type": "callout", "label": "记忆点", "text": "把 Base URL 想成地址，把 MCP 想成统一的接线标准。" }
+    ]
+  },
+  {
+    "id": "rest-api-and-github-actions",
+    "title": "REST API 和 GitHub Actions 如何配合？",
+    "category": "自动化与部署",
+    "tags": ["REST API", "GitHub Actions", "CI/CD"],
+    "date": "2026-05-05",
+    "updated": "2026-05-05",
+    "draft": false,
+    "sourceThread": "01a06f65-049d-7650-a543-d5becb4e6c55",
+    "summary": "REST API 负责读写外部服务，GitHub Actions 负责在提交、定时或手动触发时运行自动化任务。",
+    "body": [
+      { "type": "heading", "text": "典型同步链路" },
+      { "type": "code", "text": "外部工具发生变化\n        ↓\nREST API 读取数据\n        ↓\nGitHub Actions 运行脚本\n        ↓\n更新 JSON / CSS / 网站并部署" },
+      { "type": "list", "items": ["REST API：读取文件、变量、图片、组件等数据", "GitHub Actions：自动检查、生成、提交和部署", "两者结合后，可以把重复的同步工作交给流水线"] },
+      { "type": "callout", "label": "当前笔记站", "text": "本网站采用相同思路：内容写入 JSON，构建后由 GitHub Pages 发布。" }
+    ]
+  },
+  {
+    "id": "figma-sync-boundary",
+    "title": "Figma 修改后，能不能同步网页？",
+    "category": "自动化与部署",
+    "tags": ["Figma", "变量", "设计令牌", "MCP"],
+    "date": "2026-05-05",
+    "updated": "2026-05-05",
+    "draft": false,
+    "sourceThread": "01a06f65-049d-7650-a543-d5becb4e6c55",
+    "summary": "可以做到半自动同步；颜色、字体和间距适合自动化，复杂交互和动效仍需代码维护。",
+    "body": [
+      { "type": "heading", "text": "推荐边界" },
+      { "type": "list", "items": ["网页用 CSS 变量保存颜色、字体和间距", "Figma 变量或 REST API 作为视觉令牌来源", "通过 MCP 或 Actions 读取变更并生成代码", "业务逻辑、表单、接口和复杂动效继续由代码维护"] },
+      { "type": "callout", "label": "单一事实来源", "text": "视觉设计以 Figma 为准，交互与数据逻辑以代码为准，避免两边互相覆盖。" }
+    ]
+  },
+  {
+    "id": "svg-to-figma",
+    "title": "为什么 AI 矢量图粘贴到 Figma 变成图片？",
+    "category": "AI 工具与排错",
+    "tags": ["SVG", "Figma", "矢量"],
+    "date": "2026-05-04",
+    "updated": "2026-05-04",
+    "draft": false,
+    "sourceThread": "01a06f58-5d23-70d3-b6bb-66a9f66cc01a",
+    "summary": "因为剪贴板里实际传递的是 PNG/JPG，而不是 SVG 数据。",
+    "body": [
+      { "type": "heading", "text": "最稳的处理方法" },
+      { "type": "list", "items": ["让 AI 输出完整 SVG 源码", "保存为 .svg 文件", "拖入 Figma 或使用 File → Place image 导入", "双击后能选中独立路径，才说明是可编辑矢量"] },
+      { "type": "callout", "label": "判断标准", "text": "能不能选中节点，比“看起来像矢量”更可靠。" }
+    ]
+  },
+  {
+    "id": "seedance-product-consistency",
+    "title": "Seedance 生成键鼠视频，如何保持产品一致？",
+    "category": "图像与视频工作流",
+    "tags": ["Seedance", "产品一致性", "图生视频", "键鼠"],
+    "date": "2026-05-12",
+    "updated": "2026-05-12",
+    "draft": false,
+    "sourceThread": "01a08e9c-f51d-7693-a5bf-39031fe681fa",
+    "summary": "先用多角度真实参考图锁定外观，再拆成短镜头生成，文字和 Logo 放到后期处理。",
+    "body": [
+      { "type": "heading", "text": "前期参考包" },
+      { "type": "list", "items": ["键盘和鼠标分别准备正面、45°、侧面、背面、底部和接口图", "补充键帽、旋钮、侧键、滚轮、指示灯等细节特写", "同一 SKU 统一焦距、色温、背景和白平衡", "准备产品身份档案、镜头清单、动作限制和负向提示词"] },
+      { "type": "heading", "text": "验收重点" },
+      { "type": "list", "items": ["键位、按键数量和接口位置没有变化", "鼠标左右手结构、滚轮和侧键保持一致", "没有第二个产品、乱码、融化或手部穿模", "前后镜头的桌面、光线、背景与朝向连续"] },
+      { "type": "callout", "label": "经验", "text": "不要一次生成整条广告片；只重生成出错镜头，并复用前后镜头参考帧。" }
+    ]
+  },
+  {
+    "id": "ai-image-sop-survey",
+    "title": "AI 生图 SOP 培训后，如何设计满意度问卷？",
+    "category": "AI 工作流",
+    "tags": ["AI 生图", "SOP", "培训"],
+    "date": "2026-06-12",
+    "updated": "2026-06-12",
+    "draft": false,
+    "sourceThread": "01a0c7e0-7670-71a1-a20e-9f14da839c16",
+    "summary": "用约十道题覆盖总体满意度、内容清晰度、实际匹配度、掌握内容、讲师表现和应用信心。",
+    "body": [
+      { "type": "heading", "text": "问卷结构" },
+      { "type": "list", "items": ["总体满意度与目标清晰度", "内容与实际工作的匹配度", "提示词、参考图、参数和质量检查的掌握情况", "案例演示、实操练习和讲师表现", "培训后信心变化与开放建议"] },
+      { "type": "callout", "label": "设计原则", "text": "选择题便于统计，开放题用来收集具体问题；问卷控制在三分钟左右。" }
+    ]
+  },
+  {
+    "id": "flow-nano-banana-quota",
+    "title": "Flow 的 Nano Banana Pro 次数怎么看？",
+    "category": "AI 工具与排错",
+    "tags": ["Flow", "Nano Banana Pro", "额度"],
+    "date": "2026-05-02",
+    "updated": "2026-05-02",
+    "draft": false,
+    "sourceThread": "01a06026-e652-7f72-ad66-eae000fc911d",
+    "summary": "截图只能说明达到上限；固定的每日次数未必公开，具体额度要以账号当前页面为准。",
+    "body": [
+      { "type": "heading", "text": "如何判断" },
+      { "type": "list", "items": ["截图中的“达到上限”不等于显示了具体次数", "免费积分与某个模型的独立每日配额可能是两套限制", "账号、地区、套餐和平台负载都可能影响额度", "遇到额度问题应以当前账号页面和官方说明为准"] },
+      { "type": "callout", "label": "时效提醒", "text": "额度属于易变信息，发布前必须重新核验并标注日期。" }
+    ]
+  },
+  {
+    "id": "connect-dingtalk",
+    "title": "AI 能不能接入钉钉？",
+    "category": "AI 工具与排错",
+    "tags": ["钉钉", "Webhook", "MCP", "机器人"],
+    "date": "2026-05-02",
+    "updated": "2026-05-02",
+    "draft": false,
+    "sourceThread": "01a06041-bbb9-72b0-8f68-b12b25d59af8",
+    "summary": "可以通过钉钉机器人 Webhook、双向聊天机器人或自定义 MCP 接入。",
+    "body": [
+      { "type": "list", "items": ["Webhook：把构建结果、提醒和告警推送到群里", "双向机器人：在钉钉发消息，由服务调用模型后返回", "MCP：让 AI 查询或操作钉钉文档、日历、待办等业务工具"] },
+      { "type": "callout", "label": "边界", "text": "当前工作区没有一键钉钉连接器，通常需要开放平台应用、中间服务或自定义 MCP。" }
+    ]
+  },
+  {
+    "id": "publish-vibe-coding-site",
+    "title": "如何把 Vibe Coding 网页分享给别人？",
+    "category": "自动化与部署",
+    "tags": ["Vibe Coding", "GitHub", "Vercel", "公网"],
+    "date": "2026-06-15",
+    "updated": "2026-06-15",
+    "draft": false,
+    "sourceThread": "01a0b40b-dfff-7d92-9ef4-c43e9d45320a",
+    "summary": "把代码推到 GitHub，再通过 GitHub Pages、Vercel 或 Netlify 部署到公网。",
+    "body": [
+      { "type": "code", "text": "本地代码 → GitHub 仓库 → 部署平台构建 → 公网 URL" },
+      { "type": "list", "items": ["静态 HTML/CSS/JS：GitHub Pages 足够", "React/Vue/Vite：Vercel 或 Netlify 更省配置", "需要数据库和登录：还要部署后端或数据库服务", "不要把 API 密钥、数据库密码写进前端"] },
+      { "type": "callout", "label": "本网站", "text": "当前网站使用静态文件，适合 GitHub Pages 公开分享。" }
+    ]
+  },
+  {
+    "id": "url-basics",
+    "title": "URL 是什么？",
+    "category": "基础概念",
+    "tags": ["URL", "网址", "网络基础"],
+    "date": "2026-06-22",
+    "updated": "2026-06-22",
+    "draft": false,
+    "sourceThread": "01a166e0-5fd8-7883-b293-ee85d84126cd",
+    "summary": "URL 就是用来定位网页、图片或文件的网络地址，也就是浏览器地址栏里的网址。",
+    "body": [
+      { "type": "code", "text": "https://www.example.com/page" },
+      { "type": "list", "items": ["https：访问协议", "www.example.com：域名", "/page：路径"] }
+    ]
+  },
+  {
+    "id": "image-book-tools",
+    "title": "用图片生成画册，应该怎么选网站？",
+    "category": "AI 工作流",
+    "tags": ["画册", "绘本", "图片排版"],
+    "date": "2026-05-27",
+    "updated": "2026-05-27",
+    "draft": false,
+    "sourceThread": "01a0d2af-b319-7822-b2dc-338c8151f6b1",
+    "summary": "先区分“生成图片”“多页编排”和“印刷导出”三个需求，再选择对应工具。",
+    "body": [
+      { "type": "list", "items": ["只需要生图：选择支持角色或风格一致性的图像工具", "需要多页排版：选择带画布、模板和文本排版的网站", "需要交付印刷：确认尺寸、出血、分辨率和 PDF 导出能力"] },
+      { "type": "callout", "label": "判断顺序", "text": "先确定输出物是单张图片、在线画册还是可印刷 PDF，再比较网站。" }
+    ]
+  },
+  {
+    "id": "nano-banana-prompt-framework",
+    "title": "Nano Banana 的高效生图提示词框架",
+    "category": "提示词与方法",
+    "tags": ["Nano Banana", "提示词", "电商设计"],
+    "date": "2026-05-01",
+    "updated": "2026-05-01",
+    "draft": false,
+    "sourceThread": "019eb59f-9c33-7723-983b-b221b2b313af",
+    "summary": "把提示词拆成任务目标、主体身份、构图镜头、材质光线、文字限制和验收标准。",
+    "body": [
+      { "type": "code", "text": "任务目标 → 主体与产品身份 → 场景与构图 → 镜头与光线 → 风格与材质 → 文字/Logo限制 → 输出规格 → 负向约束" },
+      { "type": "list", "items": ["先说要完成什么，不要只堆形容词", "用参考图、角度、材质和结构约束产品", "明确尺寸、比例、背景和输出用途", "最后写不可改变的元素与负向限制"] },
+      { "type": "callout", "label": "电商重点", "text": "产品结构、Logo、按键数量和文字准确性优先于装饰性描述。" }
+    ]
+  }
+]

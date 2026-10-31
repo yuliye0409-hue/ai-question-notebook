@@ -1,0 +1,7 @@
+dist/
+node_modules/
+.sync/
+.env
+.env.*
+!.env.example
+*.log
