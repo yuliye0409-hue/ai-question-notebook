@@ -1,4 +1,4 @@
-import { escapeHtml, filterNotes, getCategories, getCollectionNotes, latestUpdate } from './note-view.js';
+import { escapeHtml, filterNotes, getCategories, getCarouselNotes, getCollectionNotes, latestUpdate } from './note-view.js';
 
 const app = document.querySelector('#app');
 const state = { notes: [], category: '全部', query: '', tutorialCategory: '全部', tutorialQuery: '', active: null };
@@ -6,6 +6,9 @@ const REPO_URL = 'https://github.com/yuliye0409-hue/ai-question-notebook';
 const iconArrow = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const iconSearch = '<svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>';
 const iconBook = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 5v15M3 4c4-1 6 0 9 2 3-2 5-3 9-2v14c-4-1-6 0-9 2-3-2-5-3-9-2Z"/></svg>';
+const iconPrevious = '<svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5m6 6-6-6 6-6"/></svg>';
+const iconPause = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 5v14M15 5v14"/></svg>';
+const iconPlay = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m8 5 12 7-12 7z"/></svg>';
 let returnFocus = null;
 
 function renderBody(body = []) {
@@ -22,6 +25,7 @@ function renderBody(body = []) {
 function render() {
   const glossary = getCollectionNotes(state.notes);
   const tutorials = getCollectionNotes(state.notes, 'tutorials');
+  const carouselNotes = getCarouselNotes(state.notes);
   const categories = getCategories(glossary);
   const tutorialCategories = getCategories(tutorials);
   const updated = latestUpdate(glossary);
@@ -35,8 +39,8 @@ function render() {
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-topline"><span>一份慢慢积累的 AI 词典</span><span class="hero-edition">个人笔记 / 公开分享</span></div>
         <div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span>从真实提问中整理</p><h1 id="hero-title">少一点陌生名词，<br><em>多一点理解。</em></h1><p class="hero-lede">把 AI 术语、缩写和技术名称，<br class="mobile-break">解释清楚，留待下次查阅。</p><a class="button button-light" href="#notes">翻开笔记 ${iconArrow}</a></div>
-        <div class="term-shelf" aria-label="快速阅读笔记">${glossary.slice(0, 3).map((note, index) => `<button class="term-slip slip-${index + 1}" data-note="${escapeHtml(note.id)}" aria-label="快速阅读：${escapeHtml(note.title)}"><span class="slip-top"><span>术语摘记 / ${String(index + 1).padStart(2, '0')}</span>${iconArrow}</span><strong>${escapeHtml(note.tags?.[0] || note.title)}</strong><span class="slip-title">${escapeHtml(note.title)}</span><span class="slip-lines" aria-hidden="true"><i></i><i></i></span></button>`).join('')}</div>
-        <div class="hero-foot"><span>问过的，慢慢弄懂。</span><span>读一条，理解一个概念 ${iconArrow}</span></div>
+        ${renderCarousel(carouselNotes)}
+        <div class="hero-foot"><span>问过的，慢慢弄懂。</span><div class="shelf-controls" role="group" aria-label="笔记轮播控制"><button class="shelf-control" data-carousel-step="-1" aria-label="上一条笔记" title="上一条笔记">${iconPrevious}</button><button class="shelf-control" data-carousel-toggle aria-label="暂停自动滚动" title="暂停自动滚动" aria-pressed="false">${iconPause}</button><button class="shelf-control" data-carousel-step="1" aria-label="下一条笔记" title="下一条笔记">${iconArrow}</button></div></div>
       </section>
       <section class="content-section" id="notes" aria-labelledby="notes-title">
         <div class="section-head"><div><p class="eyebrow">THE NOTEBOOK</p><h2 id="notes-title">笔记索引<span class="section-total">${String(glossary.length).padStart(2, '0')}</span></h2><p class="section-description">定义、全称、含义，以及容易混淆的区别。</p></div><span class="collection-meta">${categories.length - 1} 个分类${updated ? ` <span aria-hidden="true">/</span> 最近整理 ${escapeHtml(updated)}` : ''}</span></div>
@@ -58,6 +62,15 @@ function render() {
 
 function renderCard(note, index) {
   return `<article class="note-card"><div class="card-topline"><span>${note.entryType === 'tutorial' ? 'GUIDE' : 'NOTE'} / ${String(index + 1).padStart(2, '0')}</span>${iconBook}</div><p class="card-terms">${(note.tags || []).slice(0, 2).map(escapeHtml).join(' <span aria-hidden="true">/</span> ')}</p><h3><button class="note-open" data-note="${escapeHtml(note.id)}">${escapeHtml(note.title)}</button></h3><p class="card-summary">${escapeHtml(note.summary)}</p><div class="card-bottom"><div><span class="note-category">${escapeHtml(note.category)}</span><time datetime="${escapeHtml(note.updated)}">${escapeHtml(note.updated)}</time></div><span class="card-arrow" aria-hidden="true">${iconArrow}</span></div></article>`;
+}
+
+function renderCarousel(notes) {
+  if (!notes.length) return '<div class="term-shelf term-shelf-empty" aria-label="公开笔记">暂无公开笔记</div>';
+  const renderSlide = (note, index) => `<button class="term-slip slip-${index % 3 + 1}" data-note="${escapeHtml(note.id)}" aria-label="${note.entryType === 'tutorial' ? '阅读教程' : '阅读笔记'}：${escapeHtml(note.title)}"><span class="slip-top"><span>${note.entryType === 'tutorial' ? '教程' : '术语摘记'} / ${String(index + 1).padStart(2, '0')}</span>${iconArrow}</span><strong>${escapeHtml(note.tags?.[0] || note.title)}</strong><span class="slip-title">${escapeHtml(note.title)}</span><span class="slip-lines" aria-hidden="true"><i></i><i></i></span></button>`;
+  const slides = notes.map((note, index) => renderSlide(note, index)).join('');
+  const duplicates = notes.map((note, index) => renderSlide(note, index)).join('');
+  const duration = Math.max(18000, notes.length * 5000);
+  return `<section class="term-shelf" aria-label="全部公开笔记轮播" aria-roledescription="走马灯"><div class="term-window" data-carousel-window><div class="term-track" data-note-count="${notes.length}" style="--carousel-duration:${duration}ms"><div class="term-sequence">${slides}</div><div class="term-sequence term-track-copy" aria-hidden="true" inert>${duplicates}</div></div></div></section>`;
 }
 
 function renderResults() {
@@ -110,6 +123,8 @@ function bindEvents() {
       document.querySelector('#tutorial-search').value = '';
       renderResults(); document.querySelector('#tutorial-search').focus();
     }
+    if (event.target.closest('[data-carousel-step]')) stepCarousel(Number(event.target.closest('[data-carousel-step]').dataset.carouselStep));
+    if (event.target.closest('[data-carousel-toggle]')) toggleCarousel();
   });
   document.querySelector('#search').addEventListener('input', event => { state.query = event.target.value; renderResults(); });
   document.querySelector('#tutorial-search').addEventListener('input', event => { state.tutorialQuery = event.target.value; renderResults(); });
@@ -129,6 +144,152 @@ function bindEvents() {
       event.preventDefault(); document.querySelector('#search').focus();
     }
   });
+  bindCarousel();
+}
+
+let carouselPaused = false;
+let carouselIndex = 0;
+let carouselMotion = null;
+let carouselPlaybackSync = null;
+let carouselOpacityUpdate = null;
+
+function bindCarousel() {
+  const track = document.querySelector('.term-track');
+  const windowElement = document.querySelector('[data-carousel-window]');
+  const toggle = document.querySelector('[data-carousel-toggle]');
+  if (!track || !toggle) return;
+  carouselPaused = false;
+  carouselIndex = 0;
+  carouselMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const count = Number(track.dataset.noteCount);
+  toggle.hidden = carouselMotion.matches;
+  const visibleBySequence = new Map();
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      const visible = entry.isIntersecting && entry.intersectionRatio >= 0.55;
+      const slide = entry.target;
+      const sequence = slide.parentElement;
+      if (sequence.classList.contains('term-track-copy')) {
+        const visibleSlides = visibleBySequence.get(sequence) || new Set();
+        if (visible) visibleSlides.add(slide);
+        else visibleSlides.delete(slide);
+        visibleBySequence.set(sequence, visibleSlides);
+        const hidden = visibleSlides.size === 0;
+        sequence.inert = hidden;
+        sequence.setAttribute('aria-hidden', String(hidden));
+      }
+      slide.inert = !visible;
+      slide.setAttribute('aria-hidden', String(!visible));
+      if (visible) slide.removeAttribute('tabindex');
+      else slide.setAttribute('tabindex', '-1');
+    }
+  }, { root: windowElement, threshold: [0.55] });
+  track.querySelectorAll('.term-slip').forEach(slide => observer.observe(slide));
+  const updateOpacity = () => {
+    const bounds = document.querySelector('.hero').getBoundingClientRect();
+    track.querySelectorAll('.term-slip').forEach(slide => {
+      const rect = slide.getBoundingClientRect();
+      const fadeDistance = Math.max(60, Math.min(rect.width * 0.45, 110));
+      const safeLeft = bounds.left + 12;
+      const safeRight = bounds.right - 12;
+      const fadeIn = Math.max(0, Math.min(1, (rect.left - safeLeft) / fadeDistance));
+      const fadeOut = Math.max(0, Math.min(1, (safeRight - rect.right) / fadeDistance));
+      const opacity = Math.min(fadeIn, fadeOut);
+      slide.style.opacity = opacity.toFixed(3);
+    });
+  };
+  carouselOpacityUpdate = updateOpacity;
+  let opacityFrame = 0;
+  const animateOpacity = () => {
+    opacityFrame = 0;
+    updateOpacity();
+    if (!carouselPaused && !carouselMotion.matches && !windowElement.matches(':hover, :focus-within')) {
+      opacityFrame = requestAnimationFrame(animateOpacity);
+    }
+  };
+  const scheduleOpacity = () => {
+    if (!opacityFrame) opacityFrame = requestAnimationFrame(animateOpacity);
+  };
+  const syncPlayback = () => {
+    const animation = track.getAnimations()[0];
+    if (carouselPaused || carouselMotion.matches || windowElement.matches(':hover, :focus-within')) {
+      animation?.pause();
+      if (opacityFrame) cancelAnimationFrame(opacityFrame);
+      opacityFrame = 0;
+      updateOpacity();
+    } else {
+      animation?.play();
+      scheduleOpacity();
+    }
+  };
+  carouselPlaybackSync = syncPlayback;
+  windowElement.addEventListener('pointerenter', syncPlayback);
+  windowElement.addEventListener('pointerleave', syncPlayback);
+  windowElement.addEventListener('focusin', syncPlayback);
+  windowElement.addEventListener('focusout', syncPlayback);
+  carouselMotion.addEventListener('change', () => {
+    toggle.hidden = carouselMotion.matches;
+    if (carouselMotion.matches) {
+      track.getAnimations().forEach(animation => animation.cancel());
+      track.style.setProperty('--carousel-offset', '0px');
+      if (opacityFrame) cancelAnimationFrame(opacityFrame);
+      opacityFrame = 0;
+      updateOpacity();
+    } else {
+      track.style.removeProperty('--carousel-offset');
+      syncPlayback();
+    }
+  });
+  window.addEventListener('resize', () => {
+    if (carouselMotion.matches) track.style.setProperty('--carousel-offset', `${-carouselIndex * carouselStepSize(track)}px`);
+    updateOpacity();
+  }, { passive: true });
+  updateOpacity();
+  if (!carouselMotion.matches) scheduleOpacity();
+  toggleCarouselButton(toggle);
+}
+
+function carouselStepSize(track) {
+  const card = track.querySelector('.term-slip');
+  const gap = parseFloat(getComputedStyle(track.querySelector('.term-sequence')).columnGap) || 0;
+  return (card?.offsetWidth || 0) + gap;
+}
+
+function stepCarousel(direction) {
+  const track = document.querySelector('.term-track');
+  if (!track) return;
+  const animation = track.getAnimations()[0];
+  const count = Number(track.dataset.noteCount);
+  if (carouselMotion?.matches || !animation) {
+    carouselIndex = (carouselIndex + direction + count) % count;
+    track.style.setProperty('--carousel-offset', `${-carouselIndex * carouselStepSize(track)}px`);
+    carouselOpacityUpdate?.();
+    return;
+  }
+  const duration = Number(animation.effect?.getTiming().duration);
+  if (!Number.isFinite(duration) || duration <= 0) return;
+  animation.pause();
+  const currentTime = Number(animation.currentTime) || 0;
+  animation.currentTime = ((currentTime + direction * duration / count) % duration + duration) % duration;
+  if (!carouselPaused && !document.querySelector('[data-carousel-window]').matches(':hover, :focus-within')) animation.play();
+}
+
+function toggleCarousel() {
+  const track = document.querySelector('.term-track');
+  const toggle = document.querySelector('[data-carousel-toggle]');
+  if (!track || !toggle || carouselMotion?.matches) return;
+  carouselPaused = !carouselPaused;
+  track.getAnimations()[0]?.[carouselPaused ? 'pause' : 'play']();
+  toggleCarouselButton(toggle);
+  carouselPlaybackSync?.();
+}
+
+function toggleCarouselButton(toggle) {
+  if (!toggle) return;
+  toggle.innerHTML = carouselPaused ? iconPlay : iconPause;
+  toggle.setAttribute('aria-label', carouselPaused ? '继续自动滚动' : '暂停自动滚动');
+  toggle.title = carouselPaused ? '继续自动滚动' : '暂停自动滚动';
+  toggle.setAttribute('aria-pressed', String(carouselPaused));
 }
 
 async function init() {

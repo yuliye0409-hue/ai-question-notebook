@@ -1,5 +1,27 @@
 [
   {
+    "id": "sandbox-basics",
+    "entryType": "term-explanation",
+    "publishDecision": "approved",
+    "approvalEvidence": "2026-10-31，用户在看到本条标题及解释摘要后，明确批准推送到 GitHub 和网站，并确认结束提问；批准范围仅限沙盒概念解释，不含操作教程和会话环境信息。",
+    "title": "沙盒（Sandbox）是什么？",
+    "category": "相关技术名称",
+    "tags": ["Sandbox", "沙盒", "权限隔离", "AI 编程"],
+    "date": "2026-10-31",
+    "updated": "2026-10-31",
+    "draft": false,
+    "summary": "沙盒通过技术隔离和权限限制，为程序或 AI 提供有边界的运行环境，以减少对其他文件、系统和网络资源的影响；它不等于备份，也不能保证绝对安全。",
+    "body": [
+      { "type": "heading", "text": "一句话理解" },
+      { "type": "paragraph", "text": "沙盒（Sandbox）是通过技术隔离和权限限制，为程序或 AI 划定的受限制运行环境。可以把它理解为让机器人在指定房间里工作，而不是把整栋房子的钥匙都交给它。" },
+      { "type": "heading", "text": "在 AI 编程中的含义" },
+      { "type": "paragraph", "text": "沙盒可以限制 AI 执行命令时能够访问或修改哪些文件，以及能否访问网络，从而减少对范围之外的数据和系统造成影响的风险。具体隔离范围取决于工具及其配置。" },
+      { "type": "callout", "label": "边界", "text": "沙盒不等于备份，也不能保证绝对安全。允许范围内的真实文件仍可能被修改，因此不能把沙盒理解成怎样操作都不会损失数据。" },
+      { "type": "heading", "text": "核对来源" },
+      { "type": "list", "items": ["OpenAI 官方文档：Sandboxing — https://learn.chatgpt.com/docs/sandboxing"] }
+    ]
+  },
+  {
     "id": "codex-agents-skills-and-acceptance-criteria",
     "publishDecision": "approved",
     "approvalEvidence": "2026-10-31，用户明确要求将本次 AI 编程防跑偏笔记推送到指定网站，并同步更新 GitHub；本次按即时发布指令处理。",

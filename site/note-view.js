@@ -23,3 +23,8 @@ export function getCollectionNotes(notes, collection = 'notes') {
     ? note.entryType === 'tutorial'
     : note.entryType !== 'tutorial');
 }
+
+export function getCarouselNotes(notes) {
+  return [...getCollectionNotes(notes), ...getCollectionNotes(notes, 'tutorials')]
+    .sort((a, b) => String(b.updated).localeCompare(String(a.updated)));
+}

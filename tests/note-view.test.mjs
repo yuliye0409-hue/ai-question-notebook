@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { escapeHtml, filterNotes, getCategories, latestUpdate } from '../site/note-view.js';
+import { escapeHtml, filterNotes, getCategories, getCarouselNotes, latestUpdate } from '../site/note-view.js';
 
 const notes = [
   { id: 'mcp', title: 'MCP 是什么？', summary: '模型上下文协议的定义', category: 'AI 专业术语', tags: ['MCP'], updated: '2026-05-03', draft: false },
@@ -21,6 +21,15 @@ test('categories, ordering and update metadata exclude drafts without mutating i
   assert.equal(latestUpdate(notes), '2026-06-22');
   assert.equal(latestUpdate([]), '');
   assert.deepEqual(notes.map(note => note.id), ['mcp', 'url', 'draft']);
+});
+
+test('hero carousel includes every published glossary note and tutorial, excluding drafts', () => {
+  const entries = [
+    ...notes,
+    { id: 'guide', entryType: 'tutorial', title: 'SSH 教程', summary: '', category: '远程开发', tags: ['SSH'], updated: '2026-10-31', draft: false },
+    { id: 'draft-guide', entryType: 'tutorial', title: '草稿教程', summary: '', category: '待审核', tags: [], updated: '2026-10-31', draft: true }
+  ];
+  assert.deepEqual(getCarouselNotes(entries).map(note => note.id), ['guide', 'url', 'mcp']);
 });
 
 test('note text is escaped before insertion into markup', () => {

@@ -9,7 +9,7 @@ test('notes data has stable public fields', async () => {
   const notes = JSON.parse(await readFile(resolve(root, 'content/notes.json'), 'utf8'));
   assert.deepEqual(notes.map(note => note.id).sort(), [
     'base-url-and-mcp', 'codex-agents-skills-and-acceptance-criteria',
-    'rest-api-and-github-actions', 'url-basics'
+    'rest-api-and-github-actions', 'sandbox-basics', 'url-basics'
   ]);
   for (const note of notes) {
     assert.match(note.id, /^[a-z0-9-]+$/);
@@ -34,6 +34,22 @@ test('browser modules use extensions supported by the preview server', async () 
     assert.match(name, /\.js$/);
     assert.ok((await readFile(resolve(root, 'site', name), 'utf8')).length > 0);
   }
+});
+
+test('hero carousel covers all public entries, fades whole cards without a clipping mask, and respects reduced motion', async () => {
+  const script = await readFile(resolve(root, 'site/app.js'), 'utf8');
+  const stylesheet = await readFile(resolve(root, 'site/style.css'), 'utf8');
+  assert.match(script, /getCarouselNotes\(state\.notes\)/);
+  assert.match(script, /data-carousel-step="-1"/);
+  assert.match(script, /data-carousel-step="1"/);
+  assert.match(script, /暂停自动滚动/);
+  assert.match(script, /const fadeIn =/);
+  assert.match(script, /const fadeOut =/);
+  assert.match(script, /pointerenter/);
+  assert.match(stylesheet, /@keyframes note-marquee/);
+  assert.match(stylesheet, /\.term-window \{ overflow: visible;/);
+  assert.doesNotMatch(stylesheet, /\.term-window[^\n]*mask-image/);
+  assert.match(stylesheet, /prefers-reduced-motion: reduce/);
 });
 
 test('sync display requires confirmation instead of a daily schedule', async () => {
