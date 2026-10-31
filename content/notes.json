@@ -1,5 +1,37 @@
 [
   {
+    "id": "codex-agents-skills-and-acceptance-criteria",
+    "publishDecision": "approved",
+    "approvalEvidence": "2026-10-31，用户明确要求将本次 AI 编程防跑偏笔记推送到指定网站，并同步更新 GitHub；本次按即时发布指令处理。",
+    "entryType": "name-explanation",
+    "title": "AI 编程防跑偏：AGENTS.md、Skill 和验收标准是什么？",
+    "category": "相关技术名称",
+    "tags": ["AGENTS.md", "Skill", "Vibe Coding", "AI slip", "验收标准", "自动验证"],
+    "date": "2026-10-31",
+    "updated": "2026-10-31",
+    "draft": false,
+    "summary": "AGENTS.md 保存持续适用的开发约定，Skill 封装按任务调用的流程，验收标准定义怎样才算完成。配合测试和差异审查，可以减少 AI 编程时的跑偏与漏验证。",
+    "body": [
+      { "type": "heading", "text": "本条笔记讨论什么" },
+      { "type": "paragraph", "text": "本条把需求理解偏差、擅自扩大修改范围、反复叠加补丁，以及没有验证就声称完成，统称为 AI 编程跑偏。讨论中的 AI slip 按这个含义理解。减少此类问题，需要把目标、修改边界和验证方式写清楚，并让工具提供可检查的结果。" },
+      { "type": "heading", "text": "AGENTS.md：持续适用的开发约定" },
+      { "type": "paragraph", "text": "AGENTS.md 是供编程 Agent 读取的项目或个人指导文件，可以约定代码规范、工作范围、测试方式和交付要求。在 Codex 中，全局约定通常放在 Codex 主目录下的 AGENTS.md；默认位置可表示为 ~/.codex/AGENTS.md。设置了 CODEX_HOME 时，应以实际主目录为准。它适合保存每次开发都应遵循的规则，不需要每次手动复制提示词。" },
+      { "type": "callout", "label": "加载边界", "text": "Codex 在开始运行时发现并组合指导文件。全局 AGENTS.override.md、项目中更具体的指导以及更高优先级指令可能影响最终规则。更新后可通过新会话确认加载情况；不能假定所有已打开的旧会话都会立即刷新。" },
+      { "type": "heading", "text": "Skill：按任务复用的工作流程" },
+      { "type": "paragraph", "text": "Skill 将说明、参考资料以及可选的脚本或资源封装成可重复执行的任务流程，核心文件是 SKILL.md。适合系统化调试、完成前验证、代码审查等具体工作。它可以被明确调用，也可以在描述匹配任务且允许隐式调用时由 Agent 选择；自动匹配不等于每轮必定执行。" },
+      { "type": "list", "items": ["AGENTS.md：长期规则，例如保留用户修改、不要虚报测试通过。", "Skill：任务流程，例如按固定步骤复现问题、定位原因并验证修复。", "测试与 CI：执行实际检查，在正确配置时作为合并或发布门槛。"] },
+      { "type": "heading", "text": "验收标准：怎样才算完成" },
+      { "type": "paragraph", "text": "验收标准（Acceptance Criteria）是一组明确、可检查的结果条件。例如登录功能不能只要求“做一个登录页”，还要说明正常登录、错误密码、加载中和网络失败时的预期行为。完成与否应根据这些条件及实际验证结果判断。" },
+      { "type": "heading", "text": "可复用的防跑偏规则示例" },
+      { "type": "code", "text": "# 开发约定\n1. 先读相关代码和项目说明，理解现有行为，不猜测依赖与命令。\n2. 实质修改前明确目标、范围和可检查的验收条件；简单任务直接执行。\n3. 一次聚焦一个可验收目标，复用现有实现，不顺便做无关重构。\n4. 保留用户已有修改；未经要求不自动提交、推送、部署或操作生产数据。\n5. 未获授权的生产依赖、破坏性接口或数据库结构变更，先说明影响并确认。\n6. 不编造 API 或配置；不确定时查实际版本和官方文档，不用假数据掩盖问题。\n7. 修 bug 先建立复现步骤，可行时增加回归测试，不通过削弱检查来制造通过。\n8. 按项目和风险运行相关测试、类型检查或构建；界面改动尽可能实际操作验证。\n9. 同一问题连续两轮修复失败，先重新梳理证据和根因，再继续有依据的修改。\n10. 交付前审查差异，报告实际验证、未验证项和风险；未执行不能说已通过。" },
+      { "type": "heading", "text": "有哪些技能可以配合使用" },
+      { "type": "list", "items": ["skill-creator：把已经验证有效的重复流程整理成专用技能。", "skill-installer：查找和安装技能；安装前确认来源、适用范围和所需工具。", "openai-docs：涉及 Codex 或 OpenAI 产品时核对官方资料。", "vibehub：帮助把口语需求转成准确技术表达，减少沟通歧义。它不替代测试或代码审查。"] },
+      { "type": "callout", "label": "记忆点", "text": "长期约定放 AGENTS.md，重复流程做成 Skill，结果交给实际验证。规则能降低跑偏风险，但不是强制执行机制，也不保证 AI 永不出错。" },
+      { "type": "heading", "text": "核对来源" },
+      { "type": "list", "items": ["OpenAI 官方文档：Custom instructions with AGENTS.md — https://developers.openai.com/codex/guides/agents-md", "OpenAI 官方文档：Build skills — https://developers.openai.com/codex/skills"] }
+    ]
+  },
+  {
     "id": "base-url-and-mcp",
     "publishDecision": "approved",
     "entryType": "term-explanation",

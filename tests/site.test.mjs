@@ -8,7 +8,8 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 test('notes data has stable public fields', async () => {
   const notes = JSON.parse(await readFile(resolve(root, 'content/notes.json'), 'utf8'));
   assert.deepEqual(notes.map(note => note.id).sort(), [
-    'base-url-and-mcp', 'rest-api-and-github-actions', 'url-basics'
+    'base-url-and-mcp', 'codex-agents-skills-and-acceptance-criteria',
+    'rest-api-and-github-actions', 'url-basics'
   ]);
   for (const note of notes) {
     assert.match(note.id, /^[a-z0-9-]+$/);
