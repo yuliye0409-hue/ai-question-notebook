@@ -1,5 +1,29 @@
 [
   {
+    "id": "design-md-basics",
+    "entryType": "name-explanation",
+    "publishDecision": "approved",
+    "approvalEvidence": "2026-11-03，用户在看到《DESIGN.md 是什么？》的标题和解释摘要后，明确回复“已结束，推送到 GitHub 和网站”，批准本条名称解释并确认结束提问；批准范围仅限本条笔记。",
+    "title": "DESIGN.md 是什么？",
+    "category": "相关技术名称",
+    "tags": ["DESIGN.md", "Markdown", "设计规范", "AI 编程"],
+    "date": "2026-11-03",
+    "updated": "2026-11-03",
+    "draft": false,
+    "summary": "DESIGN.md 是 Markdown 格式的设计文档；在 AI 界面开发中，常用于记录颜色、字体、布局和组件规范，帮助统一视觉风格。",
+    "body": [
+      { "type": "heading", "text": "一句话理解" },
+      { "type": "paragraph", "text": "DESIGN.md 通常是一份设计规范文档，可以理解成给 AI 或开发者看的视觉说明书。其中 Design 是设计，.md 表示 Markdown 文档，即用简单符号组织标题、列表等内容的文本文件。" },
+      { "type": "heading", "text": "一般包含什么" },
+      { "type": "list", "items": ["颜色：主色、背景色、文字颜色。", "字体：标题与正文的字号、粗细。", "布局：页面宽度、元素间距、对齐方式。", "组件样式：按钮、卡片、输入框的外观。", "设计原则：整体风格，以及需要避免的做法。"] },
+      { "type": "heading", "text": "在 AI 界面开发中的作用" },
+      { "type": "paragraph", "text": "例如，文档可以写明：页面使用米白背景，按钮统一深绿色，卡片圆角为 12px。AI 读取后就有明确的视觉依据，方便保持不同页面风格一致。Google Labs 的 DESIGN.md 规范就是这种用途。" },
+      { "type": "callout", "label": "名称边界", "text": "具体项目里的 DESIGN.md 也可能记录软件架构设计，实际含义要看文件内容，不能只凭文件名判断。" },
+      { "type": "heading", "text": "核对来源" },
+      { "type": "paragraph", "text": "核验日期：2026-11-03。Google Labs 官方仓库：DESIGN.md — https://github.com/google-labs-code/design.md" }
+    ]
+  },
+  {
     "id": "sandbox-basics",
     "entryType": "term-explanation",
     "publishDecision": "approved",
