@@ -9,7 +9,8 @@ test('notes data has stable public fields', async () => {
   const notes = JSON.parse(await readFile(resolve(root, 'content/notes.json'), 'utf8'));
   assert.deepEqual(notes.map(note => note.id).sort(), [
     'base-url-and-mcp', 'codex-agents-skills-and-acceptance-criteria',
-    'design-md-basics', 'rest-api-and-github-actions', 'sandbox-basics', 'url-basics'
+    'design-md-basics', 'rest-api-and-github-actions', 'sandbox-basics', 'url-basics',
+    'vat-ordinary-and-special-invoices'
   ]);
   for (const note of notes) {
     assert.match(note.id, /^[a-z0-9-]+$/);

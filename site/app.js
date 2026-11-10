@@ -31,14 +31,14 @@ function render() {
   const updated = latestUpdate(glossary);
   app.innerHTML = `
     <header class="site-header"><div class="header-inner">
-      <a class="brand" href="./" aria-label="问而知，返回首页"><span class="brand-mark">${iconBook}</span><span>问而知<span class="brand-caption">个人 AI 知识笔记</span></span></a>
+      <a class="brand" href="./" aria-label="问而知，返回首页"><span class="brand-mark">${iconBook}</span><span>问而知<span class="brand-caption">AI 与跨专业知识笔记</span></span></a>
       <nav aria-label="主导航"><a class="nav-link" href="#notes">术语笔记</a><a class="nav-link" href="#tutorials">教程目录</a><a class="nav-link" href="#method">关于收录</a></nav>
       <a class="repo-link" href="${REPO_URL}" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
     </div></header>
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-topline"><span>一份慢慢积累的 AI 词典</span><span class="hero-edition">个人笔记 / 公开分享</span></div>
-        <div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span>从真实提问中整理</p><h1 id="hero-title">少一点陌生名词，<br><em>多一点理解。</em></h1><p class="hero-lede">把 AI 术语、缩写和技术名称，<br class="mobile-break">解释清楚，留待下次查阅。</p><a class="button button-light" href="#notes">翻开笔记 ${iconArrow}</a></div>
+        <div class="hero-topline"><span>一份慢慢积累的知识笔记</span><span class="hero-edition">个人笔记 / 公开分享</span></div>
+        <div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span>从真实提问中整理</p><h1 id="hero-title">少一点陌生名词，<br><em>多一点理解。</em></h1><p class="hero-lede">把 AI 术语、技术名称与跨专业概念，<br class="mobile-break">解释清楚，留待下次查阅。</p><a class="button button-light" href="#notes">翻开笔记 ${iconArrow}</a></div>
         ${renderCarousel(carouselNotes)}
         <div class="hero-foot"><span>问过的，慢慢弄懂。</span><div class="shelf-controls" role="group" aria-label="笔记轮播控制"><button class="shelf-control" data-carousel-step="-1" aria-label="上一条笔记" title="上一条笔记">${iconPrevious}</button><button class="shelf-control" data-carousel-toggle aria-label="暂停自动滚动" title="暂停自动滚动" aria-pressed="false">${iconPause}</button><button class="shelf-control" data-carousel-step="1" aria-label="下一条笔记" title="下一条笔记">${iconArrow}</button></div></div>
       </section>
@@ -52,7 +52,7 @@ function render() {
         <div class="index-toolbar"><div class="category-filters" role="group" aria-label="按教程主题筛选">${tutorialCategories.map(category => `<button class="filter-button" data-tutorial-category="${escapeHtml(category)}" aria-pressed="${state.tutorialCategory === category}">${escapeHtml(category)}<span>${category === '全部' ? tutorials.length : tutorials.filter(note => note.category === category).length}</span></button>`).join('')}</div><label class="search">${iconSearch}<input id="tutorial-search" type="search" placeholder="搜索教程、系统、场景…" aria-label="搜索教程" aria-controls="tutorials-grid" autocomplete="off"></label></div>
         <div class="notes-grid" id="tutorials-grid"></div><p class="tutorial-result-count result-count" role="status" aria-live="polite" aria-atomic="true"></p>
       </section>
-      <section class="method-section" id="method" aria-labelledby="method-title"><div class="method-intro"><p class="eyebrow">A NOTE ON NOTES</p><h2 id="method-title">只留下值得<br>再看一遍的内容。</h2><p>术语索引收录 AI 专业术语与相关技术名称。<br>教程单独归档，只有明确获准的篇目才收录。</p></div><div class="method-details"><div><span class="method-number">01</span><h3>从一个问题开始</h3><p>解释与实践分开整理，不自动收录日常工作过程。</p></div><div><span class="method-number">02</span><h3>每条笔记，单独确认</h3><p>先确认是否推送，再另行确认本次提问结束。</p></div><div><span class="method-number">03</span><h3>结束确认后等待 <span class="time-label">30 min</span></h3><p>获准笔记才安排同步，GitHub 推送后发布。</p></div><p class="method-disclaimer">以上为整理约定，网站不会自行监听对话或启动计时。</p></div></section>
+      <section class="method-section" id="method" aria-labelledby="method-title"><div class="method-intro"><p class="eyebrow">A NOTE ON NOTES</p><h2 id="method-title">只留下值得<br>再看一遍的内容。</h2><p>术语索引收录 AI 专业术语、相关技术名称与跨专业知识。<br>跨专业条目逐条确认，教程仍单独归档。</p></div><div class="method-details"><div><span class="method-number">01</span><h3>从一个问题开始</h3><p>解释与实践分开整理，不自动收录日常工作过程。</p></div><div><span class="method-number">02</span><h3>每条笔记，单独确认</h3><p>先确认是否推送，再另行确认本次提问结束。</p></div><div><span class="method-number">03</span><h3>结束确认后等待 <span class="time-label">30 min</span></h3><p>获准笔记才安排同步，GitHub 推送后发布。</p></div><p class="method-disclaimer">以上为整理约定，网站不会自行监听对话或启动计时。</p></div></section>
     </main>
     <footer class="site-footer"><a class="brand footer-brand" href="./">${iconBook}<span>问而知</span></a><p>把不懂的，变成自己的。</p><a href="${REPO_URL}" target="_blank" rel="noreferrer">公开笔记 · GitHub ↗</a></footer>
     <dialog class="reader" aria-labelledby="article-title"><div class="reader-toolbar"><span>${iconBook} 笔记 / 阅读</span><button class="icon-button" data-close aria-label="关闭笔记"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><div id="reader-content"></div></dialog>`;

@@ -35,3 +35,18 @@ test('public build excludes drafts, refused notes, pending approvals and work no
   ]).map(note => note.id), ['existing-public', 'new-approved']);
   assert.throws(() => selectPublicNotes({}), /必须是笔记数组/);
 });
+
+test('cross-disciplinary notes require explicit approval with evidence', () => {
+  const entry = { id: 'approved', category: '跨专业知识', entryType: 'term-explanation', draft: false,
+    publishDecision: 'approved', approvalEvidence: '用户明确要求收录本条解释。' };
+  assert.deepEqual(selectPublicNotes([
+    entry,
+    { ...entry, id: 'legacy', publishDecision: undefined },
+    { ...entry, id: 'pending', publishDecision: 'pending' },
+    { ...entry, id: 'rejected', publishDecision: 'rejected' },
+    { ...entry, id: 'draft', draft: true },
+    { ...entry, id: 'no-evidence', approvalEvidence: undefined },
+    { ...entry, id: 'blank-evidence', approvalEvidence: '  ' },
+    { ...entry, id: 'invalid-evidence', approvalEvidence: [] }
+  ]).map(note => note.id), ['approved']);
+});

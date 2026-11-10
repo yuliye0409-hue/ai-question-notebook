@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { escapeHtml, filterNotes, getCategories, getCarouselNotes, latestUpdate } from '../site/note-view.js';
 
 const notes = [
@@ -34,4 +35,15 @@ test('hero carousel includes every published glossary note and tutorial, excludi
 
 test('note text is escaped before insertion into markup', () => {
   assert.equal(escapeHtml('<img src="x" onerror=\'alert(1)\'>&'), '&lt;img src=&quot;x&quot; onerror=&#39;alert(1)&#39;&gt;&amp;');
+});
+
+test('cross-disciplinary invoice note appears in categories and supports focused search', async () => {
+  const { selectPublicNotes } = await import('../scripts/note-policy.mjs');
+  const entries = selectPublicNotes(JSON.parse(await readFile(new URL('../content/notes.json', import.meta.url), 'utf8')));
+  assert.ok(getCategories(entries).includes('跨专业知识'));
+  const matches = filterNotes(entries, '跨专业知识', '专票');
+  assert.deepEqual(matches.map(note => note.id), ['vat-ordinary-and-special-invoices']);
+  assert.deepEqual(filterNotes(entries, 'AI 专业术语', '专票'), []);
+  assert.match(matches[0].approvalEvidence, /收录网站/);
+  assert.match(JSON.stringify(matches[0].body), /2026-11-10/);
 });

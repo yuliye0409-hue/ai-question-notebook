@@ -26,7 +26,10 @@ export function selectPublicNotes(notes) {
   if (!Array.isArray(notes)) throw new Error('notes.json 必须是笔记数组。');
   return notes.filter(note => ENTRY_TYPES.includes(note.entryType)
     && note.draft === false
-    && !['pending', 'rejected'].includes(note.publishDecision));
+    && !['pending', 'rejected'].includes(note.publishDecision)
+    && (note.category !== '跨专业知识' || (note.publishDecision === 'approved'
+      && typeof note.approvalEvidence === 'string'
+      && note.approvalEvidence.trim().length > 0)));
 }
 
 // Tutorials are opt-in: never import ordinary work questions as glossary notes.
