@@ -1,4 +1,5 @@
 import { escapeHtml, filterNotes, getCategories, getCarouselNotes, getCollectionNotes, latestUpdate } from './note-view.js';
+import { bindArchive, coverColor, renderArchive, renderCover } from './archive-shelf.js';
 
 const app = document.querySelector('#app');
 const state = { notes: [], category: '全部', query: '', tutorialCategory: '全部', tutorialQuery: '', active: null };
@@ -6,10 +7,11 @@ const REPO_URL = 'https://github.com/yuliye0409-hue/ai-question-notebook';
 const iconArrow = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const iconSearch = '<svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>';
 const iconBook = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 5v15M3 4c4-1 6 0 9 2 3-2 5-3 9-2v14c-4-1-6 0-9 2-3-2-5-3-9-2Z"/></svg>';
-const iconPrevious = '<svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5m6 6-6-6 6-6"/></svg>';
-const iconPause = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 5v14M15 5v14"/></svg>';
-const iconPlay = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m8 5 12 7-12 7z"/></svg>';
 let returnFocus = null;
+let archiveController = null;
+let readerOrigin = null;
+let readerAnimation = null;
+let readerClosing = false;
 
 function renderBody(body = []) {
   return body.map(block => {
@@ -36,11 +38,10 @@ function render() {
       <a class="repo-link" href="${REPO_URL}" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
     </div></header>
     <main id="main">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-topline"><span>一份慢慢积累的知识笔记</span><span class="hero-edition">个人笔记 / 公开分享</span></div>
-        <div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span>从真实提问中整理</p><h1 id="hero-title">少一点陌生名词，<br><em>多一点理解。</em></h1><p class="hero-lede">把 AI 术语、技术名称与跨专业概念，<br class="mobile-break">解释清楚，留待下次查阅。</p><a class="button button-light" href="#notes">翻开笔记 ${iconArrow}</a></div>
-        ${renderCarousel(carouselNotes)}
-        <div class="hero-foot"><span>问过的，慢慢弄懂。</span><div class="shelf-controls" role="group" aria-label="笔记轮播控制"><button class="shelf-control" data-carousel-step="-1" aria-label="上一条笔记" title="上一条笔记">${iconPrevious}</button><button class="shelf-control" data-carousel-toggle aria-label="暂停自动滚动" title="暂停自动滚动" aria-pressed="false">${iconPause}</button><button class="shelf-control" data-carousel-step="1" aria-label="下一条笔记" title="下一条笔记">${iconArrow}</button></div></div>
+      <section class="hero archive-hero" aria-labelledby="hero-title">
+        <div class="hero-topline"><span>问而知 — KNOWLEDGE ARCHIVE</span><span>个人笔记 / 公开分享</span></div>
+        <div class="hero-copy"><p class="eyebrow">从一个问题，到一本自己的知识手记。</p><h1 id="hero-title">少一点陌生名词，多一点理解。</h1></div>
+        ${renderArchive(carouselNotes)}
       </section>
       <section class="content-section" id="notes" aria-labelledby="notes-title">
         <div class="section-head"><div><p class="eyebrow">THE NOTEBOOK</p><h2 id="notes-title">笔记索引<span class="section-total">${String(glossary.length).padStart(2, '0')}</span></h2><p class="section-description">定义、全称、含义，以及容易混淆的区别。</p></div><span class="collection-meta">${categories.length - 1} 个分类${updated ? ` <span aria-hidden="true">/</span> 最近整理 ${escapeHtml(updated)}` : ''}</span></div>
@@ -64,15 +65,6 @@ function renderCard(note, index) {
   return `<article class="note-card"><div class="card-topline"><span>${note.entryType === 'tutorial' ? 'GUIDE' : 'NOTE'} / ${String(index + 1).padStart(2, '0')}</span>${iconBook}</div><p class="card-terms">${(note.tags || []).slice(0, 2).map(escapeHtml).join(' <span aria-hidden="true">/</span> ')}</p><h3><button class="note-open" data-note="${escapeHtml(note.id)}">${escapeHtml(note.title)}</button></h3><p class="card-summary">${escapeHtml(note.summary)}</p><div class="card-bottom"><div><span class="note-category">${escapeHtml(note.category)}</span><time datetime="${escapeHtml(note.updated)}">${escapeHtml(note.updated)}</time></div><span class="card-arrow" aria-hidden="true">${iconArrow}</span></div></article>`;
 }
 
-function renderCarousel(notes) {
-  if (!notes.length) return '<div class="term-shelf term-shelf-empty" aria-label="公开笔记">暂无公开笔记</div>';
-  const renderSlide = (note, index) => `<button class="term-slip slip-${index % 3 + 1}" data-note="${escapeHtml(note.id)}" aria-label="${note.entryType === 'tutorial' ? '阅读教程' : '阅读笔记'}：${escapeHtml(note.title)}"><span class="slip-top"><span>${note.entryType === 'tutorial' ? '教程' : '术语摘记'} / ${String(index + 1).padStart(2, '0')}</span>${iconArrow}</span><strong>${escapeHtml(note.tags?.[0] || note.title)}</strong><span class="slip-title">${escapeHtml(note.title)}</span><span class="slip-lines" aria-hidden="true"><i></i><i></i></span></button>`;
-  const slides = notes.map((note, index) => renderSlide(note, index)).join('');
-  const duplicates = notes.map((note, index) => renderSlide(note, index)).join('');
-  const duration = Math.max(18000, notes.length * 5000);
-  return `<section class="term-shelf" aria-label="全部公开笔记轮播" aria-roledescription="走马灯"><div class="term-window" data-carousel-window><div class="term-track" data-note-count="${notes.length}" style="--carousel-duration:${duration}ms"><div class="term-sequence">${slides}</div><div class="term-sequence term-track-copy" aria-hidden="true" inert>${duplicates}</div></div></div></section>`;
-}
-
 function renderResults() {
   const glossary = getCollectionNotes(state.notes);
   const notes = filterNotes(glossary, state.category, state.query);
@@ -88,20 +80,51 @@ function renderResults() {
 
 function renderArticle(note) {
   const related = getCollectionNotes(state.notes, note.entryType === 'tutorial' ? 'tutorials' : 'notes').filter(item => item.id !== note.id).slice(0, 2);
-  return `<article class="article-content"><div class="article-meta"><span>${escapeHtml(note.category)}</span><time datetime="${escapeHtml(note.updated)}">整理于 ${escapeHtml(note.updated)}</time></div><h2 id="article-title" tabindex="-1">${escapeHtml(note.title)}</h2><p class="article-lede">${escapeHtml(note.summary)}</p><div class="article-body">${renderBody(note.body)}</div><div class="article-end"><span>— 本条笔记完 —</span><button data-close>返回索引 ${iconArrow}</button></div>${related.length ? `<aside class="related-notes" aria-label="继续阅读"><p class="eyebrow">继续翻阅</p>${related.map(item => `<button data-note="${escapeHtml(item.id)}">${escapeHtml(item.title)} ${iconArrow}</button>`).join('')}</aside>` : ''}</article>`;
+  const index = Math.max(0, getCarouselNotes(state.notes).findIndex(item => item.id === note.id));
+  return `<div class="reader-layout"><aside class="reader-poster" aria-label="笔记封面"><div class="reader-cover" style="--tape-ink:${coverColor(index)}">${renderCover(note, index)}</div><p>问过的，慢慢弄懂。</p></aside><article class="article-content"><div class="article-meta"><span>${escapeHtml(note.category)}</span><time datetime="${escapeHtml(note.updated)}">整理于 ${escapeHtml(note.updated)}</time></div><h2 id="article-title" tabindex="-1">${escapeHtml(note.title)}</h2><p class="article-lede">${escapeHtml(note.summary)}</p><div class="article-body">${renderBody(note.body)}</div><div class="article-end"><span>— 本条笔记完 —</span><button data-close>返回索引 ${iconArrow}</button></div>${related.length ? `<aside class="related-notes" aria-label="继续阅读"><p class="eyebrow">继续翻阅</p>${related.map(item => `<button data-note="${escapeHtml(item.id)}">${escapeHtml(item.title)} ${iconArrow}</button>`).join('')}</aside>` : ''}</article></div>`;
 }
 
-function openNote(id) {
+function readerClip(element) {
+  if (!element?.isConnected) return 'inset(42% 42% 42% 42% round 2px)';
+  const rect = element.getBoundingClientRect();
+  return `inset(${Math.max(0, rect.top)}px ${Math.max(0, innerWidth - rect.right)}px ${Math.max(0, innerHeight - rect.bottom)}px ${Math.max(0, rect.left)}px round 2px)`;
+}
+
+function openNote(id, origin = null) {
   const note = state.notes.find(item => item.id === id);
-  if (!note) return;
+  if (!note || readerClosing) return;
   const dialog = document.querySelector('.reader');
-  if (!dialog.open) returnFocus = document.activeElement;
+  const opening = !dialog.open;
+  if (opening) {
+    returnFocus = document.activeElement;
+    readerOrigin = origin;
+  }
   state.active = note;
   document.querySelector('#reader-content').innerHTML = renderArticle(note);
-  if (!dialog.open) dialog.showModal();
+  if (opening) dialog.showModal();
   document.body.classList.add('is-reading');
+  archiveController?.pause();
   dialog.scrollTop = 0;
   document.querySelector('#article-title').focus({ preventScroll: true });
+  if (opening && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    readerAnimation?.cancel();
+    readerAnimation = dialog.animate([{ clipPath: readerClip(origin) }, { clipPath: 'inset(0 round 0)' }], { duration: 800, easing: 'cubic-bezier(.76,0,.18,1)' });
+    dialog.querySelector('.reader-cover').animate([{ clipPath: 'inset(100% 0 0)' }, { clipPath: 'inset(0)' }], { duration: 900, delay: 260, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+  }
+}
+
+async function closeNote() {
+  const dialog = document.querySelector('.reader');
+  if (!dialog.open || readerClosing) return;
+  readerClosing = true;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    readerAnimation?.cancel();
+    readerAnimation = dialog.animate([{ clipPath: 'inset(0 round 0)' }, { clipPath: readerClip(readerOrigin) }], { duration: 550, easing: 'cubic-bezier(.76,0,.18,1)' });
+    try { await readerAnimation.finished; } catch (error) { if (error.name !== 'AbortError') throw error; }
+  }
+  dialog.close();
+  readerClosing = false;
 }
 
 function bindEvents() {
@@ -109,10 +132,10 @@ function bindEvents() {
     const note = event.target.closest('[data-note]');
     const category = event.target.closest('[data-category]');
     const tutorialCategory = event.target.closest('[data-tutorial-category]');
-    if (note) openNote(note.dataset.note);
+    if (note) openNote(note.dataset.note, note);
     if (category) { state.category = category.dataset.category; renderResults(); }
     if (tutorialCategory) { state.tutorialCategory = tutorialCategory.dataset.tutorialCategory; renderResults(); }
-    if (event.target.closest('[data-close]')) document.querySelector('.reader').close();
+    if (event.target.closest('[data-close]')) closeNote();
     if (event.target.closest('[data-reset]')) {
       state.query = ''; state.category = '全部';
       document.querySelector('#search').value = '';
@@ -123,8 +146,6 @@ function bindEvents() {
       document.querySelector('#tutorial-search').value = '';
       renderResults(); document.querySelector('#tutorial-search').focus();
     }
-    if (event.target.closest('[data-carousel-step]')) stepCarousel(Number(event.target.closest('[data-carousel-step]').dataset.carouselStep));
-    if (event.target.closest('[data-carousel-toggle]')) toggleCarousel();
   });
   document.querySelector('#search').addEventListener('input', event => { state.query = event.target.value; renderResults(); });
   document.querySelector('#tutorial-search').addEventListener('input', event => { state.tutorialQuery = event.target.value; renderResults(); });
@@ -132,11 +153,13 @@ function bindEvents() {
   dialog.addEventListener('click', event => {
     if (event.target !== dialog) return;
     const rect = dialog.getBoundingClientRect();
-    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeNote();
   });
+  dialog.addEventListener('cancel', event => { event.preventDefault(); closeNote(); });
   dialog.addEventListener('close', () => {
     state.active = null; document.body.classList.remove('is-reading');
     if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
+    archiveController?.resume();
   });
   document.addEventListener('keydown', event => {
     const editing = event.target.closest('input, textarea, select, [contenteditable="true"]');
@@ -144,152 +167,7 @@ function bindEvents() {
       event.preventDefault(); document.querySelector('#search').focus();
     }
   });
-  bindCarousel();
-}
-
-let carouselPaused = false;
-let carouselIndex = 0;
-let carouselMotion = null;
-let carouselPlaybackSync = null;
-let carouselOpacityUpdate = null;
-
-function bindCarousel() {
-  const track = document.querySelector('.term-track');
-  const windowElement = document.querySelector('[data-carousel-window]');
-  const toggle = document.querySelector('[data-carousel-toggle]');
-  if (!track || !toggle) return;
-  carouselPaused = false;
-  carouselIndex = 0;
-  carouselMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const count = Number(track.dataset.noteCount);
-  toggle.hidden = carouselMotion.matches;
-  const visibleBySequence = new Map();
-  const observer = new IntersectionObserver(entries => {
-    for (const entry of entries) {
-      const visible = entry.isIntersecting && entry.intersectionRatio >= 0.55;
-      const slide = entry.target;
-      const sequence = slide.parentElement;
-      if (sequence.classList.contains('term-track-copy')) {
-        const visibleSlides = visibleBySequence.get(sequence) || new Set();
-        if (visible) visibleSlides.add(slide);
-        else visibleSlides.delete(slide);
-        visibleBySequence.set(sequence, visibleSlides);
-        const hidden = visibleSlides.size === 0;
-        sequence.inert = hidden;
-        sequence.setAttribute('aria-hidden', String(hidden));
-      }
-      slide.inert = !visible;
-      slide.setAttribute('aria-hidden', String(!visible));
-      if (visible) slide.removeAttribute('tabindex');
-      else slide.setAttribute('tabindex', '-1');
-    }
-  }, { root: windowElement, threshold: [0.55] });
-  track.querySelectorAll('.term-slip').forEach(slide => observer.observe(slide));
-  const updateOpacity = () => {
-    const bounds = document.querySelector('.hero').getBoundingClientRect();
-    track.querySelectorAll('.term-slip').forEach(slide => {
-      const rect = slide.getBoundingClientRect();
-      const fadeDistance = Math.max(60, Math.min(rect.width * 0.45, 110));
-      const safeLeft = bounds.left + 12;
-      const safeRight = bounds.right - 12;
-      const fadeIn = Math.max(0, Math.min(1, (rect.left - safeLeft) / fadeDistance));
-      const fadeOut = Math.max(0, Math.min(1, (safeRight - rect.right) / fadeDistance));
-      const opacity = Math.min(fadeIn, fadeOut);
-      slide.style.opacity = opacity.toFixed(3);
-    });
-  };
-  carouselOpacityUpdate = updateOpacity;
-  let opacityFrame = 0;
-  const animateOpacity = () => {
-    opacityFrame = 0;
-    updateOpacity();
-    if (!carouselPaused && !carouselMotion.matches && !windowElement.matches(':hover, :focus-within')) {
-      opacityFrame = requestAnimationFrame(animateOpacity);
-    }
-  };
-  const scheduleOpacity = () => {
-    if (!opacityFrame) opacityFrame = requestAnimationFrame(animateOpacity);
-  };
-  const syncPlayback = () => {
-    const animation = track.getAnimations()[0];
-    if (carouselPaused || carouselMotion.matches || windowElement.matches(':hover, :focus-within')) {
-      animation?.pause();
-      if (opacityFrame) cancelAnimationFrame(opacityFrame);
-      opacityFrame = 0;
-      updateOpacity();
-    } else {
-      animation?.play();
-      scheduleOpacity();
-    }
-  };
-  carouselPlaybackSync = syncPlayback;
-  windowElement.addEventListener('pointerenter', syncPlayback);
-  windowElement.addEventListener('pointerleave', syncPlayback);
-  windowElement.addEventListener('focusin', syncPlayback);
-  windowElement.addEventListener('focusout', syncPlayback);
-  carouselMotion.addEventListener('change', () => {
-    toggle.hidden = carouselMotion.matches;
-    if (carouselMotion.matches) {
-      track.getAnimations().forEach(animation => animation.cancel());
-      track.style.setProperty('--carousel-offset', '0px');
-      if (opacityFrame) cancelAnimationFrame(opacityFrame);
-      opacityFrame = 0;
-      updateOpacity();
-    } else {
-      track.style.removeProperty('--carousel-offset');
-      syncPlayback();
-    }
-  });
-  window.addEventListener('resize', () => {
-    if (carouselMotion.matches) track.style.setProperty('--carousel-offset', `${-carouselIndex * carouselStepSize(track)}px`);
-    updateOpacity();
-  }, { passive: true });
-  updateOpacity();
-  if (!carouselMotion.matches) scheduleOpacity();
-  toggleCarouselButton(toggle);
-}
-
-function carouselStepSize(track) {
-  const card = track.querySelector('.term-slip');
-  const gap = parseFloat(getComputedStyle(track.querySelector('.term-sequence')).columnGap) || 0;
-  return (card?.offsetWidth || 0) + gap;
-}
-
-function stepCarousel(direction) {
-  const track = document.querySelector('.term-track');
-  if (!track) return;
-  const animation = track.getAnimations()[0];
-  const count = Number(track.dataset.noteCount);
-  if (carouselMotion?.matches || !animation) {
-    carouselIndex = (carouselIndex + direction + count) % count;
-    track.style.setProperty('--carousel-offset', `${-carouselIndex * carouselStepSize(track)}px`);
-    carouselOpacityUpdate?.();
-    return;
-  }
-  const duration = Number(animation.effect?.getTiming().duration);
-  if (!Number.isFinite(duration) || duration <= 0) return;
-  animation.pause();
-  const currentTime = Number(animation.currentTime) || 0;
-  animation.currentTime = ((currentTime + direction * duration / count) % duration + duration) % duration;
-  if (!carouselPaused && !document.querySelector('[data-carousel-window]').matches(':hover, :focus-within')) animation.play();
-}
-
-function toggleCarousel() {
-  const track = document.querySelector('.term-track');
-  const toggle = document.querySelector('[data-carousel-toggle]');
-  if (!track || !toggle || carouselMotion?.matches) return;
-  carouselPaused = !carouselPaused;
-  track.getAnimations()[0]?.[carouselPaused ? 'pause' : 'play']();
-  toggleCarouselButton(toggle);
-  carouselPlaybackSync?.();
-}
-
-function toggleCarouselButton(toggle) {
-  if (!toggle) return;
-  toggle.innerHTML = carouselPaused ? iconPlay : iconPause;
-  toggle.setAttribute('aria-label', carouselPaused ? '继续自动滚动' : '暂停自动滚动');
-  toggle.title = carouselPaused ? '继续自动滚动' : '暂停自动滚动';
-  toggle.setAttribute('aria-pressed', String(carouselPaused));
+  archiveController = bindArchive(document.querySelector('[data-archive]'), getCarouselNotes(state.notes), { openNote, isReading: () => document.querySelector('.reader').open });
 }
 
 async function init() {

@@ -37,19 +37,20 @@ test('browser modules use extensions supported by the preview server', async () 
   }
 });
 
-test('hero carousel covers all public entries, fades whole cards without a clipping mask, and respects reduced motion', async () => {
+test('hero uses an accessible curved archive with manual controls, pause and reduced motion', async () => {
   const script = await readFile(resolve(root, 'site/app.js'), 'utf8');
+  const shelf = await readFile(resolve(root, 'site/archive-shelf.js'), 'utf8');
   const stylesheet = await readFile(resolve(root, 'site/style.css'), 'utf8');
   assert.match(script, /getCarouselNotes\(state\.notes\)/);
-  assert.match(script, /data-carousel-step="-1"/);
-  assert.match(script, /data-carousel-step="1"/);
-  assert.match(script, /暂停自动滚动/);
-  assert.match(script, /const fadeIn =/);
-  assert.match(script, /const fadeOut =/);
-  assert.match(script, /pointerenter/);
-  assert.match(stylesheet, /@keyframes note-marquee/);
-  assert.match(stylesheet, /\.term-window \{ overflow: visible;/);
-  assert.doesNotMatch(stylesheet, /\.term-window[^\n]*mask-image/);
+  assert.match(shelf, /data-archive-step="-1"/);
+  assert.match(shelf, /data-archive-step="1"/);
+  assert.match(shelf, /暂停自动翻阅/);
+  assert.match(shelf, /pointercancel/);
+  assert.match(shelf, /ArrowLeft/);
+  assert.match(shelf, /aria-live="polite"/);
+  assert.match(stylesheet, /perspective: 1400px/);
+  assert.doesNotMatch(stylesheet, /note-marquee|\.term-window/);
+  assert.match(script, /clipPath: readerClip/);
   assert.match(stylesheet, /prefers-reduced-motion: reduce/);
 });
 
