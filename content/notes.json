@@ -6,23 +6,67 @@
     "approvalEvidence": "2026-11-10，用户针对普票与专票区别的答复明确表示“已结束提问，收录网站”，随后要求“增设一个跨专业知识”，指定目标网站并明确要求“立即更新”。据此授权本条及对应分类改动即时提交、推送和发布；即时发布指令仅适用于本批次。",
     "title": "普票与专票的区别",
     "category": "跨专业知识",
-    "tags": ["普票", "专票", "增值税", "进项税额", "税务"],
+    "tags": [
+      "普票",
+      "专票",
+      "增值税",
+      "进项税额",
+      "税务"
+    ],
     "date": "2026-11-10",
     "updated": "2026-11-10",
     "draft": false,
     "summary": "普票和专票都可用于符合要求的报销、记账，主要区别在增值税抵扣：一般纳税人取得专票且符合条件时可抵扣，普票通常不能，但部分项目例外。",
     "body": [
-      { "type": "heading", "text": "普票和专票是什么" },
-      { "type": "paragraph", "text": "普票是增值税普通发票，专票是增值税专用发票。两者都可作为交易凭证，合规且符合要求时，都能用于报销、记账。主要区别是能否用于抵扣增值税进项税额。" },
-      { "type": "heading", "text": "抵扣是什么意思" },
-      { "type": "paragraph", "text": "抵扣是用采购时支付或负担的增值税，抵减企业按规定应缴的增值税，不是商家向购买方返现。一般纳税人取得专票后，还要符合相应抵扣条件，并非所有专票都能抵扣。" },
-      { "type": "heading", "text": "举个例子" },
-      { "type": "paragraph", "text": "假设公司买办公设备，含税价为 1,130 元，其中货款 1,000 元、增值税 130 元。如果公司是一般纳税人，取得专票且该项采购符合抵扣条件，这 130 元可以抵减公司应缴的增值税。相同采购取得普通普票，通常不能抵扣这 130 元，但符合要求仍可用于报销、记账。" },
-      { "type": "callout", "label": "注意例外", "text": "普票通常不能抵扣增值税，但部分项目有例外，例如符合规定的收费公路通行费电子普通发票。专票也不代表税率一定更高。" },
-      { "type": "heading", "text": "实际开票怎么选" },
-      { "type": "paragraph", "text": "个人消费通常选择普票；替公司采购时，先向财务确认需要哪种发票。公司能否抵扣，取决于纳税人身份、采购用途及相关税法条件。" },
-      { "type": "heading", "text": "官方来源与核验日期" },
-      { "type": "list", "items": ["核验日期：2026-11-10。", "国家税务总局全国增值税发票查验平台：发票种类 — https://inv-veri.chinatax.gov.cn/fpcs/fpzl.html", "财政部、税务总局公告 2026 年第 13 号：关于增值税进项税额抵扣等有关事项的公告 — https://qingdao.chinatax.gov.cn/ssfg2019/zxwj/202602/t20260203_102259.html"] }
+      {
+        "type": "heading",
+        "text": "普票和专票是什么"
+      },
+      {
+        "type": "paragraph",
+        "text": "普票是增值税普通发票，专票是增值税专用发票。两者都可作为交易凭证，合规且符合要求时，都能用于报销、记账。主要区别是能否用于抵扣增值税进项税额。"
+      },
+      {
+        "type": "heading",
+        "text": "抵扣是什么意思"
+      },
+      {
+        "type": "paragraph",
+        "text": "抵扣是用采购时支付或负担的增值税，抵减企业按规定应缴的增值税，不是商家向购买方返现。一般纳税人取得专票后，还要符合相应抵扣条件，并非所有专票都能抵扣。"
+      },
+      {
+        "type": "heading",
+        "text": "举个例子"
+      },
+      {
+        "type": "paragraph",
+        "text": "假设公司买办公设备，含税价为 1,130 元，其中货款 1,000 元、增值税 130 元。如果公司是一般纳税人，取得专票且该项采购符合抵扣条件，这 130 元可以抵减公司应缴的增值税。相同采购取得普通普票，通常不能抵扣这 130 元，但符合要求仍可用于报销、记账。"
+      },
+      {
+        "type": "callout",
+        "label": "注意例外",
+        "text": "普票通常不能抵扣增值税，但部分项目有例外，例如符合规定的收费公路通行费电子普通发票。专票也不代表税率一定更高。"
+      },
+      {
+        "type": "heading",
+        "text": "实际开票怎么选"
+      },
+      {
+        "type": "paragraph",
+        "text": "个人消费通常选择普票；替公司采购时，先向财务确认需要哪种发票。公司能否抵扣，取决于纳税人身份、采购用途及相关税法条件。"
+      },
+      {
+        "type": "heading",
+        "text": "官方来源与核验日期"
+      },
+      {
+        "type": "list",
+        "items": [
+          "核验日期：2026-11-10。",
+          "国家税务总局全国增值税发票查验平台：发票种类 — https://inv-veri.chinatax.gov.cn/fpcs/fpzl.html",
+          "财政部、税务总局公告 2026 年第 13 号：关于增值税进项税额抵扣等有关事项的公告 — https://qingdao.chinatax.gov.cn/ssfg2019/zxwj/202602/t20260203_102259.html"
+        ]
+      }
     ]
   },
   {
@@ -32,21 +76,60 @@
     "approvalEvidence": "2026-11-03，用户在看到《DESIGN.md 是什么？》的标题和解释摘要后，明确回复“已结束，推送到 GitHub 和网站”，批准本条名称解释并确认结束提问；批准范围仅限本条笔记。",
     "title": "DESIGN.md 是什么？",
     "category": "相关技术名称",
-    "tags": ["DESIGN.md", "Markdown", "设计规范", "AI 编程"],
+    "tags": [
+      "DESIGN.md",
+      "Markdown",
+      "设计规范",
+      "AI 编程"
+    ],
     "date": "2026-11-03",
     "updated": "2026-11-03",
     "draft": false,
     "summary": "DESIGN.md 是 Markdown 格式的设计文档；在 AI 界面开发中，常用于记录颜色、字体、布局和组件规范，帮助统一视觉风格。",
     "body": [
-      { "type": "heading", "text": "一句话理解" },
-      { "type": "paragraph", "text": "DESIGN.md 通常是一份设计规范文档，可以理解成给 AI 或开发者看的视觉说明书。其中 Design 是设计，.md 表示 Markdown 文档，即用简单符号组织标题、列表等内容的文本文件。" },
-      { "type": "heading", "text": "一般包含什么" },
-      { "type": "list", "items": ["颜色：主色、背景色、文字颜色。", "字体：标题与正文的字号、粗细。", "布局：页面宽度、元素间距、对齐方式。", "组件样式：按钮、卡片、输入框的外观。", "设计原则：整体风格，以及需要避免的做法。"] },
-      { "type": "heading", "text": "在 AI 界面开发中的作用" },
-      { "type": "paragraph", "text": "例如，文档可以写明：页面使用米白背景，按钮统一深绿色，卡片圆角为 12px。AI 读取后就有明确的视觉依据，方便保持不同页面风格一致。Google Labs 的 DESIGN.md 规范就是这种用途。" },
-      { "type": "callout", "label": "名称边界", "text": "具体项目里的 DESIGN.md 也可能记录软件架构设计，实际含义要看文件内容，不能只凭文件名判断。" },
-      { "type": "heading", "text": "核对来源" },
-      { "type": "paragraph", "text": "核验日期：2026-11-03。Google Labs 官方仓库：DESIGN.md — https://github.com/google-labs-code/design.md" }
+      {
+        "type": "heading",
+        "text": "一句话理解"
+      },
+      {
+        "type": "paragraph",
+        "text": "DESIGN.md 通常是一份设计规范文档，可以理解成给 AI 或开发者看的视觉说明书。其中 Design 是设计，.md 表示 Markdown 文档，即用简单符号组织标题、列表等内容的文本文件。"
+      },
+      {
+        "type": "heading",
+        "text": "一般包含什么"
+      },
+      {
+        "type": "list",
+        "items": [
+          "颜色：主色、背景色、文字颜色。",
+          "字体：标题与正文的字号、粗细。",
+          "布局：页面宽度、元素间距、对齐方式。",
+          "组件样式：按钮、卡片、输入框的外观。",
+          "设计原则：整体风格，以及需要避免的做法。"
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "在 AI 界面开发中的作用"
+      },
+      {
+        "type": "paragraph",
+        "text": "例如，文档可以写明：页面使用米白背景，按钮统一深绿色，卡片圆角为 12px。AI 读取后就有明确的视觉依据，方便保持不同页面风格一致。Google Labs 的 DESIGN.md 规范就是这种用途。"
+      },
+      {
+        "type": "callout",
+        "label": "名称边界",
+        "text": "具体项目里的 DESIGN.md 也可能记录软件架构设计，实际含义要看文件内容，不能只凭文件名判断。"
+      },
+      {
+        "type": "heading",
+        "text": "核对来源"
+      },
+      {
+        "type": "paragraph",
+        "text": "核验日期：2026-11-03。Google Labs 官方仓库：DESIGN.md — https://github.com/google-labs-code/design.md"
+      }
     ]
   },
   {
@@ -56,19 +139,48 @@
     "approvalEvidence": "2026-10-31，用户在看到本条标题及解释摘要后，明确批准推送到 GitHub 和网站，并确认结束提问；批准范围仅限沙盒概念解释，不含操作教程和会话环境信息。",
     "title": "沙盒（Sandbox）是什么？",
     "category": "相关技术名称",
-    "tags": ["Sandbox", "沙盒", "权限隔离", "AI 编程"],
+    "tags": [
+      "Sandbox",
+      "沙盒",
+      "权限隔离",
+      "AI 编程"
+    ],
     "date": "2026-10-31",
     "updated": "2026-10-31",
     "draft": false,
     "summary": "沙盒通过技术隔离和权限限制，为程序或 AI 提供有边界的运行环境，以减少对其他文件、系统和网络资源的影响；它不等于备份，也不能保证绝对安全。",
     "body": [
-      { "type": "heading", "text": "一句话理解" },
-      { "type": "paragraph", "text": "沙盒（Sandbox）是通过技术隔离和权限限制，为程序或 AI 划定的受限制运行环境。可以把它理解为让机器人在指定房间里工作，而不是把整栋房子的钥匙都交给它。" },
-      { "type": "heading", "text": "在 AI 编程中的含义" },
-      { "type": "paragraph", "text": "沙盒可以限制 AI 执行命令时能够访问或修改哪些文件，以及能否访问网络，从而减少对范围之外的数据和系统造成影响的风险。具体隔离范围取决于工具及其配置。" },
-      { "type": "callout", "label": "边界", "text": "沙盒不等于备份，也不能保证绝对安全。允许范围内的真实文件仍可能被修改，因此不能把沙盒理解成怎样操作都不会损失数据。" },
-      { "type": "heading", "text": "核对来源" },
-      { "type": "list", "items": ["OpenAI 官方文档：Sandboxing — https://learn.chatgpt.com/docs/sandboxing"] }
+      {
+        "type": "heading",
+        "text": "一句话理解"
+      },
+      {
+        "type": "paragraph",
+        "text": "沙盒（Sandbox）是通过技术隔离和权限限制，为程序或 AI 划定的受限制运行环境。可以把它理解为让机器人在指定房间里工作，而不是把整栋房子的钥匙都交给它。"
+      },
+      {
+        "type": "heading",
+        "text": "在 AI 编程中的含义"
+      },
+      {
+        "type": "paragraph",
+        "text": "沙盒可以限制 AI 执行命令时能够访问或修改哪些文件，以及能否访问网络，从而减少对范围之外的数据和系统造成影响的风险。具体隔离范围取决于工具及其配置。"
+      },
+      {
+        "type": "callout",
+        "label": "边界",
+        "text": "沙盒不等于备份，也不能保证绝对安全。允许范围内的真实文件仍可能被修改，因此不能把沙盒理解成怎样操作都不会损失数据。"
+      },
+      {
+        "type": "heading",
+        "text": "核对来源"
+      },
+      {
+        "type": "list",
+        "items": [
+          "OpenAI 官方文档：Sandboxing — https://learn.chatgpt.com/docs/sandboxing"
+        ]
+      }
     ]
   },
   {
@@ -78,29 +190,101 @@
     "entryType": "name-explanation",
     "title": "AI 编程防跑偏：AGENTS.md、Skill 和验收标准是什么？",
     "category": "相关技术名称",
-    "tags": ["AGENTS.md", "Skill", "Vibe Coding", "AI slip", "验收标准", "自动验证"],
+    "tags": [
+      "AGENTS.md",
+      "Skill",
+      "Vibe Coding",
+      "AI slip",
+      "验收标准",
+      "自动验证"
+    ],
     "date": "2026-10-31",
     "updated": "2026-10-31",
     "draft": false,
     "summary": "AGENTS.md 保存持续适用的开发约定，Skill 封装按任务调用的流程，验收标准定义怎样才算完成。配合测试和差异审查，可以减少 AI 编程时的跑偏与漏验证。",
     "body": [
-      { "type": "heading", "text": "本条笔记讨论什么" },
-      { "type": "paragraph", "text": "本条把需求理解偏差、擅自扩大修改范围、反复叠加补丁，以及没有验证就声称完成，统称为 AI 编程跑偏。讨论中的 AI slip 按这个含义理解。减少此类问题，需要把目标、修改边界和验证方式写清楚，并让工具提供可检查的结果。" },
-      { "type": "heading", "text": "AGENTS.md：持续适用的开发约定" },
-      { "type": "paragraph", "text": "AGENTS.md 是供编程 Agent 读取的项目或个人指导文件，可以约定代码规范、工作范围、测试方式和交付要求。在 Codex 中，全局约定通常放在 Codex 主目录下的 AGENTS.md；默认位置可表示为 ~/.codex/AGENTS.md。设置了 CODEX_HOME 时，应以实际主目录为准。它适合保存每次开发都应遵循的规则，不需要每次手动复制提示词。" },
-      { "type": "callout", "label": "加载边界", "text": "Codex 在开始运行时发现并组合指导文件。全局 AGENTS.override.md、项目中更具体的指导以及更高优先级指令可能影响最终规则。更新后可通过新会话确认加载情况；不能假定所有已打开的旧会话都会立即刷新。" },
-      { "type": "heading", "text": "Skill：按任务复用的工作流程" },
-      { "type": "paragraph", "text": "Skill 将说明、参考资料以及可选的脚本或资源封装成可重复执行的任务流程，核心文件是 SKILL.md。适合系统化调试、完成前验证、代码审查等具体工作。它可以被明确调用，也可以在描述匹配任务且允许隐式调用时由 Agent 选择；自动匹配不等于每轮必定执行。" },
-      { "type": "list", "items": ["AGENTS.md：长期规则，例如保留用户修改、不要虚报测试通过。", "Skill：任务流程，例如按固定步骤复现问题、定位原因并验证修复。", "测试与 CI：执行实际检查，在正确配置时作为合并或发布门槛。"] },
-      { "type": "heading", "text": "验收标准：怎样才算完成" },
-      { "type": "paragraph", "text": "验收标准（Acceptance Criteria）是一组明确、可检查的结果条件。例如登录功能不能只要求“做一个登录页”，还要说明正常登录、错误密码、加载中和网络失败时的预期行为。完成与否应根据这些条件及实际验证结果判断。" },
-      { "type": "heading", "text": "可复用的防跑偏规则示例" },
-      { "type": "code", "text": "# 开发约定\n1. 先读相关代码和项目说明，理解现有行为，不猜测依赖与命令。\n2. 实质修改前明确目标、范围和可检查的验收条件；简单任务直接执行。\n3. 一次聚焦一个可验收目标，复用现有实现，不顺便做无关重构。\n4. 保留用户已有修改；未经要求不自动提交、推送、部署或操作生产数据。\n5. 未获授权的生产依赖、破坏性接口或数据库结构变更，先说明影响并确认。\n6. 不编造 API 或配置；不确定时查实际版本和官方文档，不用假数据掩盖问题。\n7. 修 bug 先建立复现步骤，可行时增加回归测试，不通过削弱检查来制造通过。\n8. 按项目和风险运行相关测试、类型检查或构建；界面改动尽可能实际操作验证。\n9. 同一问题连续两轮修复失败，先重新梳理证据和根因，再继续有依据的修改。\n10. 交付前审查差异，报告实际验证、未验证项和风险；未执行不能说已通过。" },
-      { "type": "heading", "text": "有哪些技能可以配合使用" },
-      { "type": "list", "items": ["skill-creator：把已经验证有效的重复流程整理成专用技能。", "skill-installer：查找和安装技能；安装前确认来源、适用范围和所需工具。", "openai-docs：涉及 Codex 或 OpenAI 产品时核对官方资料。", "vibehub：帮助把口语需求转成准确技术表达，减少沟通歧义。它不替代测试或代码审查。"] },
-      { "type": "callout", "label": "记忆点", "text": "长期约定放 AGENTS.md，重复流程做成 Skill，结果交给实际验证。规则能降低跑偏风险，但不是强制执行机制，也不保证 AI 永不出错。" },
-      { "type": "heading", "text": "核对来源" },
-      { "type": "list", "items": ["OpenAI 官方文档：Custom instructions with AGENTS.md — https://developers.openai.com/codex/guides/agents-md", "OpenAI 官方文档：Build skills — https://developers.openai.com/codex/skills"] }
+      {
+        "type": "heading",
+        "text": "本条笔记讨论什么"
+      },
+      {
+        "type": "paragraph",
+        "text": "本条把需求理解偏差、擅自扩大修改范围、反复叠加补丁，以及没有验证就声称完成，统称为 AI 编程跑偏。讨论中的 AI slip 按这个含义理解。减少此类问题，需要把目标、修改边界和验证方式写清楚，并让工具提供可检查的结果。"
+      },
+      {
+        "type": "heading",
+        "text": "AGENTS.md：持续适用的开发约定"
+      },
+      {
+        "type": "paragraph",
+        "text": "AGENTS.md 是供编程 Agent 读取的项目或个人指导文件，可以约定代码规范、工作范围、测试方式和交付要求。在 Codex 中，全局约定通常放在 Codex 主目录下的 AGENTS.md；默认位置可表示为 ~/.codex/AGENTS.md。设置了 CODEX_HOME 时，应以实际主目录为准。它适合保存每次开发都应遵循的规则，不需要每次手动复制提示词。"
+      },
+      {
+        "type": "callout",
+        "label": "加载边界",
+        "text": "Codex 在开始运行时发现并组合指导文件。全局 AGENTS.override.md、项目中更具体的指导以及更高优先级指令可能影响最终规则。更新后可通过新会话确认加载情况；不能假定所有已打开的旧会话都会立即刷新。"
+      },
+      {
+        "type": "heading",
+        "text": "Skill：按任务复用的工作流程"
+      },
+      {
+        "type": "paragraph",
+        "text": "Skill 将说明、参考资料以及可选的脚本或资源封装成可重复执行的任务流程，核心文件是 SKILL.md。适合系统化调试、完成前验证、代码审查等具体工作。它可以被明确调用，也可以在描述匹配任务且允许隐式调用时由 Agent 选择；自动匹配不等于每轮必定执行。"
+      },
+      {
+        "type": "list",
+        "items": [
+          "AGENTS.md：长期规则，例如保留用户修改、不要虚报测试通过。",
+          "Skill：任务流程，例如按固定步骤复现问题、定位原因并验证修复。",
+          "测试与 CI：执行实际检查，在正确配置时作为合并或发布门槛。"
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "验收标准：怎样才算完成"
+      },
+      {
+        "type": "paragraph",
+        "text": "验收标准（Acceptance Criteria）是一组明确、可检查的结果条件。例如登录功能不能只要求“做一个登录页”，还要说明正常登录、错误密码、加载中和网络失败时的预期行为。完成与否应根据这些条件及实际验证结果判断。"
+      },
+      {
+        "type": "heading",
+        "text": "可复用的防跑偏规则示例"
+      },
+      {
+        "type": "code",
+        "text": "# 开发约定\n1. 先读相关代码和项目说明，理解现有行为，不猜测依赖与命令。\n2. 实质修改前明确目标、范围和可检查的验收条件；简单任务直接执行。\n3. 一次聚焦一个可验收目标，复用现有实现，不顺便做无关重构。\n4. 保留用户已有修改；未经要求不自动提交、推送、部署或操作生产数据。\n5. 未获授权的生产依赖、破坏性接口或数据库结构变更，先说明影响并确认。\n6. 不编造 API 或配置；不确定时查实际版本和官方文档，不用假数据掩盖问题。\n7. 修 bug 先建立复现步骤，可行时增加回归测试，不通过削弱检查来制造通过。\n8. 按项目和风险运行相关测试、类型检查或构建；界面改动尽可能实际操作验证。\n9. 同一问题连续两轮修复失败，先重新梳理证据和根因，再继续有依据的修改。\n10. 交付前审查差异，报告实际验证、未验证项和风险；未执行不能说已通过。"
+      },
+      {
+        "type": "heading",
+        "text": "有哪些技能可以配合使用"
+      },
+      {
+        "type": "list",
+        "items": [
+          "skill-creator：把已经验证有效的重复流程整理成专用技能。",
+          "skill-installer：查找和安装技能；安装前确认来源、适用范围和所需工具。",
+          "openai-docs：涉及 Codex 或 OpenAI 产品时核对官方资料。",
+          "vibehub：帮助把口语需求转成准确技术表达，减少沟通歧义。它不替代测试或代码审查。"
+        ]
+      },
+      {
+        "type": "callout",
+        "label": "记忆点",
+        "text": "长期约定放 AGENTS.md，重复流程做成 Skill，结果交给实际验证。规则能降低跑偏风险，但不是强制执行机制，也不保证 AI 永不出错。"
+      },
+      {
+        "type": "heading",
+        "text": "核对来源"
+      },
+      {
+        "type": "list",
+        "items": [
+          "OpenAI 官方文档：Custom instructions with AGENTS.md — https://developers.openai.com/codex/guides/agents-md",
+          "OpenAI 官方文档：Build skills — https://developers.openai.com/codex/skills"
+        ]
+      }
     ]
   },
   {
@@ -109,19 +293,46 @@
     "entryType": "term-explanation",
     "title": "Base URL 和 MCP 分别是什么？",
     "category": "AI 专业术语",
-    "tags": ["Base URL", "MCP", "API"],
+    "tags": [
+      "Base URL",
+      "MCP",
+      "API"
+    ],
     "date": "2026-05-03",
     "updated": "2026-05-03",
     "draft": false,
     "sourceThread": "01a06501-1e2f-7e32-bf57-4de8d911cdb3",
     "summary": "Base URL 是 API 服务的基础地址；MCP 是让 AI 连接外部工具、数据和服务的标准协议。",
     "body": [
-      { "type": "heading", "text": "一句话理解" },
-      { "type": "paragraph", "text": "Base URL 解决“服务在哪里”，MCP 解决“AI 如何发现并使用外部工具”。" },
-      { "type": "code", "text": "Base URL: https://api.example.com/v1\n完整接口: https://api.example.com/v1/chat/completions" },
-      { "type": "heading", "text": "MCP 能连接什么" },
-      { "type": "list", "items": ["文件系统和本地资料", "数据库与内部业务工具", "浏览器、GitHub 和自动化服务"] },
-      { "type": "callout", "label": "记忆点", "text": "把 Base URL 想成地址，把 MCP 想成统一的接线标准。" }
+      {
+        "type": "heading",
+        "text": "一句话理解"
+      },
+      {
+        "type": "paragraph",
+        "text": "Base URL 解决“服务在哪里”，MCP 解决“AI 如何发现并使用外部工具”。"
+      },
+      {
+        "type": "code",
+        "text": "Base URL: https://api.example.com/v1\n完整接口: https://api.example.com/v1/chat/completions"
+      },
+      {
+        "type": "heading",
+        "text": "MCP 能连接什么"
+      },
+      {
+        "type": "list",
+        "items": [
+          "文件系统和本地资料",
+          "数据库与内部业务工具",
+          "浏览器、GitHub 和自动化服务"
+        ]
+      },
+      {
+        "type": "callout",
+        "label": "记忆点",
+        "text": "把 Base URL 想成地址，把 MCP 想成统一的接线标准。"
+      }
     ]
   },
   {
@@ -130,18 +341,37 @@
     "entryType": "name-explanation",
     "title": "REST API 和 GitHub Actions 分别是什么？",
     "category": "相关技术名称",
-    "tags": ["REST API", "GitHub Actions"],
+    "tags": [
+      "REST API",
+      "GitHub Actions"
+    ],
     "date": "2026-05-05",
     "updated": "2026-05-05",
     "draft": false,
     "sourceThread": "01a06f65-049d-7650-a543-d5becb4e6c55",
     "summary": "REST API 是程序访问外部服务的一种接口形式；GitHub Actions 是 GitHub 仓库中的自动化任务功能。",
     "body": [
-      { "type": "heading", "text": "REST API" },
-      { "type": "paragraph", "text": "程序通过接口读取或修改外部服务的数据。REST API 说明接口的组织方式，不是一个 AI 模型或聊天工具。" },
-      { "type": "heading", "text": "GitHub Actions" },
-      { "type": "paragraph", "text": "GitHub 仓库中的自动化任务功能，可以在代码提交、手动触发或预设时间运行任务。它不是 AI 模型，而是执行自动化流程的工具。" },
-      { "type": "callout", "label": "区别", "text": "REST API 是访问服务的接口；GitHub Actions 是运行任务的执行环境。" }
+      {
+        "type": "heading",
+        "text": "REST API"
+      },
+      {
+        "type": "paragraph",
+        "text": "程序通过接口读取或修改外部服务的数据。REST API 说明接口的组织方式，不是一个 AI 模型或聊天工具。"
+      },
+      {
+        "type": "heading",
+        "text": "GitHub Actions"
+      },
+      {
+        "type": "paragraph",
+        "text": "GitHub 仓库中的自动化任务功能，可以在代码提交、手动触发或预设时间运行任务。它不是 AI 模型，而是执行自动化流程的工具。"
+      },
+      {
+        "type": "callout",
+        "label": "区别",
+        "text": "REST API 是访问服务的接口；GitHub Actions 是运行任务的执行环境。"
+      }
     ]
   },
   {
@@ -150,15 +380,85 @@
     "entryType": "name-explanation",
     "title": "URL 是什么？",
     "category": "相关技术名称",
-    "tags": ["URL", "网址", "网络基础"],
+    "tags": [
+      "URL",
+      "网址",
+      "网络基础"
+    ],
     "date": "2026-06-22",
     "updated": "2026-06-22",
     "draft": false,
     "sourceThread": "01a166e0-5fd8-7883-b293-ee85d84126cd",
     "summary": "URL 就是用来定位网页、图片或文件的网络地址，也就是浏览器地址栏里的网址。",
     "body": [
-      { "type": "code", "text": "https://www.example.com/page" },
-      { "type": "list", "items": ["https：访问协议", "www.example.com：域名", "/page：路径"] }
+      {
+        "type": "code",
+        "text": "https://www.example.com/page"
+      },
+      {
+        "type": "list",
+        "items": [
+          "https：访问协议",
+          "www.example.com：域名",
+          "/page：路径"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pbr-materials-and-ai-estimation",
+    "entryType": "term-explanation",
+    "publishDecision": "approved",
+    "approvalEvidence": "2026-11-23（Asia/Shanghai），用户在看到本条标题和摘要后，明确批准将本条概念解释发布到 GitHub 和网站。",
+    "title": "PBR 材质是什么，AI 能从照片推断什么？",
+    "category": "跨专业知识",
+    "tags": [
+      "PBR",
+      "3D 材质",
+      "材质贴图",
+      "AI 材质估计"
+    ],
+    "date": "2026-11-23",
+    "updated": "2026-11-23",
+    "draft": false,
+    "summary": "PBR 用基础色、金属度、粗糙度和法线等通道描述表面如何与光互动。AI 可以从照片估计这些通道，但单张照片的材质特征与拍摄光照往往混在一起，估计结果只能作为近似。",
+    "body": [
+      {
+        "type": "heading",
+        "text": "PBR 和材质通道"
+      },
+      {
+        "type": "paragraph",
+        "text": "PBR（Physically Based Rendering，基于物理的渲染）是一类用物理模型计算表面如何与光互动的渲染方法。PBR 材质为这类渲染提供参数。材质参数既可以是统一的数值，也可以用贴图描述它在表面各处的变化。"
+      },
+      {
+        "type": "list",
+        "items": [
+          "基础色（Base Color）描述材质的颜色，通常应与拍摄光照分离。",
+          "金属度（Metallic）控制表面按非金属或金属模型计算反射。",
+          "粗糙度（Roughness）控制反射的清晰程度。较低的粗糙度通常产生更清晰的高光。",
+          "法线（Normal）描述局部表面的朝向，可在保持模型轮廓的同时表现细小凹凸。"
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "AI 从照片估计材质的边界"
+      },
+      {
+        "type": "paragraph",
+        "text": "AI 可以利用照片里的纹理和反光线索估计材质参数。例如，一道暗纹可能来自材料本身的颜色，也可能是沟槽产生的阴影。在光源未知时，单张照片往往支持多种解释。渲染出来与原照片相似，只能说明这组参数在当前条件下可以重现相近的外观。不同光照或视角下的额外观测有助于缩小估计范围。"
+      },
+      {
+        "type": "heading",
+        "text": "参考资料"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Blender 官方手册 · Principled BSDF — https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html",
+          "Deschaintre 等 · Single-Image SVBRDF Capture with a Rendering-Aware Deep Network — https://arxiv.org/abs/1810.09718"
+        ]
+      }
     ]
   }
 ]
